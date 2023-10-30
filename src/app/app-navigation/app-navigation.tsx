@@ -1,6 +1,4 @@
-import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { SomeFlowPageConnector } from '@flows/some-flow-name'
 import { styled } from '@shared/ui/theme'
 import { Typography } from '@shared/ui/atoms'
 import { useTheme } from '@shared/hooks'
@@ -27,7 +25,6 @@ export const AppNavigation = () => {
         headerBackTitleVisible: false,
       }}
     >
-      <Stack.Screen name="home" component={SomeFlowPageConnector} />
       <Stack.Screen name="profile">
         {(props) => (
           <Wrapper {...props}>
