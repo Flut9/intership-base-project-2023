@@ -26,8 +26,7 @@
       "@entities/*": ["entities/*"],
       "@features/*": ["features/*"],
       "@flows/*": ["flows/*"],
-      "@shared/*": ["shared/*"],
-      "@ui/*": ["ui/*"],
+      "@shared/*": ["shared/*"]
     },
     "types": [
       "styled-components-react-native"
