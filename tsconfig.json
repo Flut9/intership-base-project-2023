@@ -27,7 +27,7 @@
       "@features/*": ["features/*"],
       "@shared/*": ["shared/*"],
       "@screens/*": ["screens/*"],
-      "@screens/*": ["processes/*"],
+      "@processes/*": ["processes/*"],
       "@widgets/*": ["widgets/*"]
     },
     "types": [

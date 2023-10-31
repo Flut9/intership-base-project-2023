@@ -1,7 +1,16 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { styled } from '@shared/ui/theme'
-import { Typography } from '@shared/ui/atoms'
 import { useTheme } from '@shared/hooks'
+import {
+  IconMainProduct,
+  IconPayment,
+  IconUser,
+  IconBank
+} from '@shared/ui/icons'
+import { Home } from 'screens/home/'
+import { ATMs } from 'screens/atms'
+import { Profile } from 'screens/profile'
+import { PaymentsNavigation } from './payments-navigation'
 
 const Wrapper = styled.View`
   background-color: ${({ theme }) => theme.palette.background.primary};
@@ -9,29 +18,68 @@ const Wrapper = styled.View`
   padding: 16px;
 `
 
-const Stack = createNativeStackNavigator()
+export type TabsStackParams = {
+  Home: undefined,
+  Payments: undefined,
+  ATMs: undefined,
+  Profile: undefined
+}
+
+const Tabs = createBottomTabNavigator()
 
 export const AppNavigation = () => {
   const theme = useTheme()
 
   return (
-    <Stack.Navigator
+    <Tabs.Navigator 
       screenOptions={{
-        headerStyle: {
+        tabBarActiveTintColor: theme.palette.accent.secondary,
+        tabBarInactiveTintColor: theme.palette.text.secondary,
+        headerShown: false,
+        tabBarStyle: {
           backgroundColor: theme.palette.background.primary,
+          borderTopWidth: 0
         },
-        headerTintColor: theme.palette.text.primary,
-        headerShadowVisible: false,
-        headerBackTitleVisible: false,
+        tabBarLabelStyle: {
+          fontSize: 11
+        }
       }}
     >
-      <Stack.Screen name="profile">
-        {(props) => (
-          <Wrapper {...props}>
-            <Typography variant="largeTitle">Profile page!</Typography>
-          </Wrapper>
-        )}
-      </Stack.Screen>
-    </Stack.Navigator>
+      <Tabs.Screen
+        component={Home}
+        name="Home"
+        options={{
+          title: "Главная",
+          tabBarIcon: ({ color }) => <IconMainProduct color={color} />
+        }}
+      />
+
+      <Tabs.Screen 
+        component={PaymentsNavigation}
+        name="Payments"
+        options={{
+          title: "Платежи",
+          tabBarIcon: ({ color }) => <IconPayment color={color} />
+        }}
+      />
+
+      <Tabs.Screen 
+        component={ATMs}
+        name="ATMs"
+        options={{
+          title: "Банкоматы",
+          tabBarIcon: ({ color }) => <IconBank color={color} />
+        }}
+      />
+
+      <Tabs.Screen
+        component={Profile}
+        name="Profile"
+        options={{
+          title: "Профиль",
+          tabBarIcon: ({ color }) => <IconUser color={color} />
+        }}
+      />
+    </Tabs.Navigator>
   )
 }
