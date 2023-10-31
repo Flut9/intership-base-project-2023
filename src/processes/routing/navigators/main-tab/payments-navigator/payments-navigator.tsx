@@ -1,21 +1,19 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { Payments } from "screens/payments"
+import { PaymentsScreen } from "../../../screens"
 import styled from "styled-components/native"
 
-const Wrapper = styled.View``
-
-export type PaymentsStackParams = {
-    Payments: undefined
-}
+const Wrapper = styled.View`
+    flex: 1;
+`
 
 const PaymentsStack = createNativeStackNavigator()
 
-export const PaymentsNavigation = () => {
+export const PaymentsNavigator = () => {
     return (
         <Wrapper>
             <PaymentsStack.Navigator>
                 <PaymentsStack.Screen
-                    component={Payments}
+                    component={PaymentsScreen}
                     name="Payments"
                 />
             </PaymentsStack.Navigator>
