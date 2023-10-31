@@ -20,7 +20,7 @@ const Wrapper = styled.View`
 
 export type TabsStackParams = {
   Home: undefined,
-  Payments: undefined,
+  PaymentsNavigation: undefined,
   ATMs: undefined,
   Profile: undefined
 }
@@ -31,55 +31,57 @@ export const AppNavigation = () => {
   const theme = useTheme()
 
   return (
-    <Tabs.Navigator 
-      screenOptions={{
-        tabBarActiveTintColor: theme.palette.accent.secondary,
-        tabBarInactiveTintColor: theme.palette.text.secondary,
-        headerShown: false,
-        tabBarStyle: {
-          backgroundColor: theme.palette.background.primary,
-          borderTopWidth: 0
-        },
-        tabBarLabelStyle: {
-          fontSize: 11
-        }
-      }}
-    >
-      <Tabs.Screen
-        component={Home}
-        name="Home"
-        options={{
-          title: "Главная",
-          tabBarIcon: ({ color }) => <IconMainProduct color={color} />
+    <Wrapper>
+      <Tabs.Navigator 
+        screenOptions={{
+          tabBarActiveTintColor: theme.palette.accent.secondary,
+          tabBarInactiveTintColor: theme.palette.text.secondary,
+          headerShown: false,
+          tabBarStyle: {
+            backgroundColor: theme.palette.background.primary,
+            borderTopWidth: 0
+          },
+          tabBarLabelStyle: {
+            fontSize: 11
+          }
         }}
-      />
+      >
+        <Tabs.Screen
+          component={Home}
+          name="Home"
+          options={{
+            title: "Главная",
+            tabBarIcon: ({ color }) => <IconMainProduct color={color} />
+          }}
+        />
 
-      <Tabs.Screen 
-        component={PaymentsNavigation}
-        name="Payments"
-        options={{
-          title: "Платежи",
-          tabBarIcon: ({ color }) => <IconPayment color={color} />
-        }}
-      />
+        <Tabs.Screen 
+          component={PaymentsNavigation}
+          name="PaymentsNavigation"
+          options={{
+            title: "Платежи",
+            tabBarIcon: ({ color }) => <IconPayment color={color} />
+          }}
+        />
 
-      <Tabs.Screen 
-        component={ATMs}
-        name="ATMs"
-        options={{
-          title: "Банкоматы",
-          tabBarIcon: ({ color }) => <IconBank color={color} />
-        }}
-      />
+        <Tabs.Screen 
+          component={ATMs}
+          name="ATMs"
+          options={{
+            title: "Банкоматы",
+            tabBarIcon: ({ color }) => <IconBank color={color} />
+          }}
+        />
 
-      <Tabs.Screen
-        component={Profile}
-        name="Profile"
-        options={{
-          title: "Профиль",
-          tabBarIcon: ({ color }) => <IconUser color={color} />
-        }}
-      />
-    </Tabs.Navigator>
+        <Tabs.Screen
+          component={Profile}
+          name="Profile"
+          options={{
+            title: "Профиль",
+            tabBarIcon: ({ color }) => <IconUser color={color} />
+          }}
+        />
+      </Tabs.Navigator>
+    </Wrapper>
   )
 }

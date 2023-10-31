@@ -8,7 +8,7 @@ const Wrapper = styled.View`
     align-items: center;
 `
 
-export const Payments = () => {
+export const Payments = () => {    
     return (
         <Wrapper>
             <Typography align="center">Платежи</Typography>
