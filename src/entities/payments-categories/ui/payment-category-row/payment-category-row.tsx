@@ -35,7 +35,10 @@ const IconContainer = styled.View`
     background-color: ${({ theme }) => theme.palette.content.secondary};
 `
 
-const Icon = styled.Image``
+const Icon = styled.Image`
+    width: 24px;
+    height: 24px;
+`
 
 const TitleTypography = styled(Typography)`
     margin-left: 16px;
