@@ -1,31 +1,19 @@
-import { useState, useCallback, useEffect } from "react"
-import { getPaymentCategories, PaymentCategoryUI, mapPaymentCategoriesToUI } from "@shared/api/payment-categories"
+import { useMemo } from "react"
 import { Payments } from "./payments"
+import { usePaymentsCategories } from "@entities/payments-categories"
+import { mapPaymentCategoryToUI } from "@shared/api/payment-categories"
 
 export const PaymentsConnector = () => {
-    const [paymentCategories, setPaymentCategories] = useState<PaymentCategoryUI[]>()
+    const { paymentCategories, isLoading } = usePaymentsCategories()
 
-    useEffect(() => {
-        fetchPaymentsCategories()
-    }, [])
-
-    const fetchPaymentsCategories = useCallback(async () => {
-        const response = await getPaymentCategories()
-        
-        if (!response) {
-            return
-        }
-
-        setPaymentCategories(mapPaymentCategoriesToUI(response).categories)
-    }, [getPaymentCategories, mapPaymentCategoriesToUI, setPaymentCategories])
-
-    if (!paymentCategories) {
-        return <></>
-    }
+    const paymentCategoriesUI = useMemo(
+        () => paymentCategories.map(mapPaymentCategoryToUI),
+        [paymentCategories]
+    )
 
     return (
         <Payments 
-            paymentCategories={paymentCategories}
+            paymentCategories={paymentCategoriesUI}
         />
     )
 }

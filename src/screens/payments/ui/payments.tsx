@@ -1,22 +1,39 @@
+import { useCallback } from "react"
+import { FlatList, Pressable } from "react-native"
+import { ListRenderItemInfo } from "react-native/types"
 import { PaymentCategoryUI } from "@shared/api/payment-categories"
-import { Typography } from "@shared/ui/atoms"
+import { PaymentCategoryRow } from "@entities/payments-categories"
 import styled from "styled-components/native"
 
 const Wrapper = styled.View`
-    background-color: ${({ theme }) => theme.palette.background.primary};
+    background-color: ${({ theme }) => theme.palette.background.secondary};
     flex: 1;
-    justify-content: center;
-    align-items: center;
 `
+
+const CategoriesList = styled.FlatList`
+    flex: 1;
+` as typeof FlatList
 
 type Props = {
     paymentCategories: PaymentCategoryUI[]
 }
 
 export const Payments = ({ paymentCategories }: Props) => {    
+    const renderListItem = useCallback(({ item }: ListRenderItemInfo<PaymentCategoryUI>) => (
+        <Pressable onPress={() => {}}>
+            <PaymentCategoryRow category={item} />
+        </Pressable>
+    ), [])
+
+    const getKeyExtractor = useCallback((category: PaymentCategoryUI) => category.id, [])
+
     return (
         <Wrapper>
-            <Typography align="center">Платежи</Typography>
+            <CategoriesList 
+                data={paymentCategories}
+                renderItem={renderListItem}
+                keyExtractor={getKeyExtractor}
+            />
         </Wrapper>
     )
 }

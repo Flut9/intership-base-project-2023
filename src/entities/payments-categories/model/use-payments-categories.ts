@@ -1,9 +1,9 @@
-import { PaymentCategoriesAPI } from "@shared/api/payment-categories"
+import { PaymentCategoriesAPI, PaymentCategoryAPI } from "@shared/api/payment-categories"
 import { getPaymentCategories } from "@shared/api/payment-categories"
 import { useCallback, useEffect, useState } from "react"
 
 export const usePaymentsCategories = () => {
-    const [paymentCategories, setPaymentCategories] = useState<PaymentCategoriesAPI>()
+    const [paymentCategories, setPaymentCategories] = useState<PaymentCategoryAPI[]>([])
     const [isLoading, setLoading] = useState(false)
 
     useEffect(() => {
@@ -15,11 +15,7 @@ export const usePaymentsCategories = () => {
 
         const response = await getPaymentCategories()
 
-        if (!response) {
-            return
-        }
-
-        setPaymentCategories(response)
+        setPaymentCategories(response?.category ?? [])
         setLoading(false)
     }, [setPaymentCategories, getPaymentCategories])
 

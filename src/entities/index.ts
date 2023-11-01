@@ -1,1 +1,1 @@
-export { usePaymentsCategories } from "./payments-categories"
+export { usePaymentsCategories, PaymentCategoryRow } from "./payments-categories"

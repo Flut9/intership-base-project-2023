@@ -38,7 +38,7 @@ export const mapPaymentCategoriesToUI = (response: PaymentCategoriesAPI): Paymen
     }
 }
 
-const mapPaymentCategoryToUI = (response: PaymentCategoryAPI): PaymentCategoryUI => {
+export const mapPaymentCategoryToUI = (response: PaymentCategoryAPI): PaymentCategoryUI => {
     return {
         id: response.category_id,
         name: response.category_name,
