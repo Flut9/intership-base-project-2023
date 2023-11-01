@@ -5,15 +5,6 @@ import { PaymentCategoryUI } from "@shared/api/payment-categories"
 import { PaymentCategoryRow } from "@entities/payments-categories"
 import styled from "styled-components/native"
 
-const Wrapper = styled.View`
-    background-color: ${({ theme }) => theme.palette.background.secondary};
-    flex: 1;
-`
-
-const CategoriesList = styled.FlatList`
-    flex: 1;
-` as typeof FlatList
-
 type Props = {
     paymentCategories: PaymentCategoryUI[]
 }
@@ -37,3 +28,12 @@ export const Payments = ({ paymentCategories }: Props) => {
         </Wrapper>
     )
 }
+
+const Wrapper = styled.View`
+    background-color: ${({ theme }) => theme.palette.background.secondary};
+    flex: 1;
+`
+
+const CategoriesList = styled.FlatList`
+    flex: 1;
+` as typeof FlatList
