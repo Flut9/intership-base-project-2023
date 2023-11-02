@@ -1,1 +1,1 @@
-export {}
+export { useSearchPaymentServices } from "./search-payment-services"

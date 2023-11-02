@@ -7,5 +7,6 @@ export {
     type PaymentCategoryUI,
     type PaymentServiceUI,
     mapPaymentCategoriesToUI,
-    mapPaymentCategoryToUI
+    mapPaymentCategoryToUI,
+    mapPaymentServiceToUI
 } from "./types"
