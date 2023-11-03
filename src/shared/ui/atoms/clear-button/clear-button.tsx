@@ -1,25 +1,31 @@
 import { PressableProps } from "react-native/types"
 import { IconClose } from "@shared/ui/icons"
 import styled from "styled-components/native"
+import { useTheme } from "@shared/hooks"
 
 type Props = PressableProps & {
-    size: number
+    size: number,
+    buttonStyle?: ClearButtonStyle
 }
 
-export const ClearButton = ({ size, ...props }: Props) => {
+type ClearButtonStyle = "default" | "background"
+
+export const ClearButton = ({ size, buttonStyle = "default", ...props }: Props) => {
+    const theme = useTheme()
+
     return (
-        <Wrapper {...props}>
-            <IconClose size={size} />
+        <Wrapper buttonStyle={buttonStyle} {...props}>
+            <IconClose size={size} color={theme.palette.text.tertiary} />
         </Wrapper>
     )
 }
 
-const Wrapper = styled.Pressable`
-    width: 16px;
-    height: 16px;
+const Wrapper = styled.Pressable<{ buttonStyle: ClearButtonStyle }>`
+    padding: 2px;
     border-radius: 8px;
-    background-color: ${({ theme }) => theme.palette.text.secondary};
+    background-color: ${({ theme, buttonStyle }) => {
+        return buttonStyle === "background" ? theme.palette.text.secondary : "transparent"
+    }};
     justify-content: center;
     align-items: center;
-    margin-left: 10px;
 `

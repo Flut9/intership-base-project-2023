@@ -4,7 +4,7 @@ import { usePaymentsCategories } from "@entities/payments-categories"
 import { mapPaymentCategoryToUI, PaymentCategoryAPI } from "@shared/api/payment-categories"
 
 type Props = {
-    onCategoryClick: (services: PaymentCategoryAPI) => void
+    onCategoryClick: (category: PaymentCategoryAPI) => void
 }
 
 export const PaymentsConnector = ({ onCategoryClick }: Props) => {

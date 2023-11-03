@@ -4,12 +4,11 @@ import { useTheme } from "@shared/hooks"
 import styled from "styled-components/native"
 import { useCallback } from "react"
 import { ClearButton } from "@shared/ui/atoms"
+import { Input } from "@shared/ui/atoms"
 
 type Props = TextInputProps
 
 export const SearchBar = (props: Props) => {
-    const theme = useTheme()
-
     const onClearButtonClick = useCallback(() => {
         props.onChangeText?.("")
     }, [props])
@@ -17,9 +16,9 @@ export const SearchBar = (props: Props) => {
     return (
         <Wrapper>
             <IconSearch />  
-            <Input placeholderTextColor={theme.palette.text.tertiary} {...props} />
+            <StyledInput {...props} />
             
-            {props.value && <ClearButton size={12} onPress={onClearButtonClick} />}
+            {props.value && <ClearButton buttonStyle="background" size={12} onPress={onClearButtonClick} />}
         </Wrapper> 
     )
 }
@@ -32,9 +31,7 @@ const Wrapper = styled.View`
     padding: 6px 8px;
 `
 
-const Input = styled.TextInput`
-    flex: 1;
-    font-size: 15px;
+const StyledInput = styled(Input)`
     margin-left: 4px;
-    color: ${({ theme }) => theme.palette.text.primary};
+    margin-right: 4px;
 `

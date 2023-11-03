@@ -24,7 +24,7 @@ export const PaymentServices = ({
             <PaymentServiceRow service={item} />
         </Pressable>
     ), [])
-
+ 
     const getKeyExtractor = useCallback((service: PaymentServiceUI) => service.id, [])
 
     return (
@@ -33,6 +33,7 @@ export const PaymentServices = ({
                 <SearchBar 
                     placeholder="Поиск" 
                     value={searchText}
+                    autoCapitalize="none"
                     onChangeText={onSearchBarChange}
                 />
             </SearchBarWrapper>
