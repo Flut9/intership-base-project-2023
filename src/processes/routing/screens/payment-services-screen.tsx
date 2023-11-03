@@ -8,16 +8,12 @@ import styled from "styled-components/native"
 export const PaymentServicesScreen = ({ navigation, route }: PaymentServicesScreenProps) => {
     const { category } = route.params
 
-    const setupNavBar = useCallback(() => {
+    useEffect(() => {
         navigation.setOptions({
             title: category.category_name,
             headerLeft: () => <BackButton onPress={() => navigation.goBack()} />
         })
     }, [navigation, category])
-
-    useEffect(() => {
-        setupNavBar()
-    }, [setupNavBar])
 
     const onServiceClick = useCallback((selectedService: PaymentServiceAPI) => {
         navigation.navigate("CreatePayment", {

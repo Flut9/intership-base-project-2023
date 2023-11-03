@@ -9,7 +9,7 @@ export const PaymentsScreen = ({ navigation, route }: PaymentsScreenProps) => {
         navigation.navigate("PaymentServices", {
             category: paymentCategory
         })
-    }, [])
+    }, [navigation])
 
     return (
         <Wrapper>

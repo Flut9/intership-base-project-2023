@@ -8,6 +8,8 @@ type Props = {
     onChipClick: (chipValue: number) => void
 }
 
+const getExtractorKey = (item: number) => String(item)
+
 export const ChipsList = ({ values, onChipClick }: Props) => {
     const renderListItem = useCallback(({ item }: ListRenderItemInfo<number>) => {
         return (
@@ -19,9 +21,6 @@ export const ChipsList = ({ values, onChipClick }: Props) => {
 
     const renderSeparatorItem = useCallback(() => <SeparatorView />, [])
 
-    // TODO: - надо что-нибудь придумать
-    const getExtractorKey = useCallback((item: number) => String(item), [])
-
     return (
         <Wrapper>
             <HorizontalList 
@@ -29,7 +28,7 @@ export const ChipsList = ({ values, onChipClick }: Props) => {
                 renderItem={renderListItem}
                 keyExtractor={getExtractorKey}
                 ItemSeparatorComponent={renderSeparatorItem}
-                horizontal={true}
+                horizontal
                 showsHorizontalScrollIndicator={false}
                 contentInset={{
                     right: 32,
