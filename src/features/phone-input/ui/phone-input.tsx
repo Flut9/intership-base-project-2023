@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react"
 import { Input } from "@shared/ui/atoms"
 import { ClearButton } from "@shared/ui/atoms"
-import styled from "styled-components/native"
 import { useTheme } from "@shared/hooks"
+import styled from "styled-components/native"
 
 type Props = {
     iconUri: string,

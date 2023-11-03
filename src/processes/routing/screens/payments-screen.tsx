@@ -1,8 +1,7 @@
 import { useCallback } from "react"
-import { PaymentsConnector } from "../../../screens/payments"
-import { PaymentsScreenProps } from "../types"
+import { PaymentsConnector } from "@screens/payments"
+import { PaymentsScreenProps } from "@processes/routing/types"
 import { PaymentCategoryAPI } from "@shared/api/payment-categories"
-
 import styled from "styled-components/native"
 
 export const PaymentsScreen = ({ navigation, route }: PaymentsScreenProps) => {

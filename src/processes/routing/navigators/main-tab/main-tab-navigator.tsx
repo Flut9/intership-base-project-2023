@@ -9,7 +9,7 @@ import { Home } from 'screens/home'
 import { ATMs } from 'screens/atms'
 import { Profile } from 'screens/profile'
 import { PaymentsNavigator } from './payments-navigator'
-import { useTheme } from 'styled-components'
+import { useTheme } from '@shared/hooks'
 import { MainTabStackParams } from '@processes/routing/types'
 import styled from "styled-components/native"
 

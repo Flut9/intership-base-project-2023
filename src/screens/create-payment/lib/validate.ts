@@ -1,5 +1,5 @@
 import { validateAmount } from "@entities/amout-input"
-import { validatePhone } from "@entities/phone-input"
+import { validatePhone } from "@features/phone-input"
 
 export type ValidFieldsType = {
     isAmountValid: boolean,

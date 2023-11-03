@@ -1,4 +1,4 @@
-import { MainTabNavigator } from '../../processes/routing'
+import { MainTabNavigator } from '@processes/routing'
 import { styled } from '@shared/ui/theme'
 
 const Wrapper = styled.View`

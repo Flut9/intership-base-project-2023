@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react"
-import { CreatePaymentConnector } from "../../../screens/create-payment"
+import { CreatePaymentConnector } from "@screens/create-payment"
 import { BackButton } from "@shared/ui/atoms"
-import { CreatePaymentScreenProps } from "../types"
+import { CreatePaymentScreenProps } from "@processes/routing/types"
 import styled from "styled-components/native"
 
 export const CreatePaymentScreen = ({ navigation, route }: CreatePaymentScreenProps) => {

@@ -1,4 +1,4 @@
-import { PaymentCategoriesAPI, PaymentCategoryAPI } from "@shared/api/payment-categories"
+import { PaymentCategoryAPI } from "@shared/api/payment-categories"
 import { getPaymentCategories } from "@shared/api/payment-categories"
 import { useCallback, useEffect, useState } from "react"
 

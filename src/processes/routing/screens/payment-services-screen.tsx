@@ -1,9 +1,9 @@
 import { useCallback, useEffect } from "react"
-import { PaymentServicesConnector } from "../../../screens/payment-services"
-import { PaymentServicesScreenProps } from "../types"
-import styled from "styled-components/native"
+import { PaymentServicesConnector } from "@screens/payment-services"
+import { PaymentServicesScreenProps } from "@processes/routing/types"
 import { BackButton } from "@shared/ui/atoms"
 import { PaymentServiceAPI } from "@shared/api/payment-categories"
+import styled from "styled-components/native"
 
 export const PaymentServicesScreen = ({ navigation, route }: PaymentServicesScreenProps) => {
     const { category } = route.params

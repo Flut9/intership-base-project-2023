@@ -1,7 +1,7 @@
 import { IconCardWhite, IconChevronDown } from "@shared/ui/icons"
 import { Typography } from "@shared/ui/atoms"
-import styled from "styled-components/native"
 import { useTheme } from "@shared/hooks"
+import styled from "styled-components/native"
 
 export const CardStub = () => {
     const theme = useTheme()

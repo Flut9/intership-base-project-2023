@@ -1,6 +1,5 @@
 import { Typography } from "@shared/ui/atoms"
 import { useCallback } from "react"
-import { Pressable } from "react-native"
 import { ListRenderItemInfo } from "react-native/types"
 import styled from "styled-components/native"
 
