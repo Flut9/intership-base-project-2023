@@ -1,1 +1,1 @@
-export { ChipsList } from "./chips-list"
+export { ChipsList } from './chips-list'

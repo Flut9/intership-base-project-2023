@@ -1,7 +1,8 @@
 import React from 'react'
-import Svg, { Rect, Path } from 'react-native-svg'
+import Svg, { Path, Rect } from 'react-native-svg'
 
 import { TBaseIconProps } from './types'
+
 export const IconNotificationBadge = ({ size, color }: TBaseIconProps) => {
   return (
     <Svg width={size ?? 20} height={size ?? 20} viewBox="0 0 20 20" fill="none">

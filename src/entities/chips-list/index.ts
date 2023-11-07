@@ -1,1 +1,1 @@
-export { ChipsList } from "./ui"
+export { ChipsList } from './ui'

@@ -1,2 +1,2 @@
-export { Payments } from "./payments"
-export { PaymentsConnector } from "./payments-connector"
+export { Payments } from './payments'
+export { PaymentsConnector } from './payments-connector'

@@ -1,1 +1,1 @@
-export { PaymentCategoryRow } from "./payment-category-row"
+export { PaymentCategoryRow } from './payment-category-row'

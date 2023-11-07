@@ -1,7 +1,8 @@
 import React from 'react'
-import Svg, { Rect, Path, Circle } from 'react-native-svg'
+import Svg, { Circle, Path, Rect } from 'react-native-svg'
 
 import { TBaseIconProps } from './types'
+
 export const IconCase = ({ size, color }: TBaseIconProps) => {
   return (
     <Svg width={size ?? 24} height={size ?? 24} viewBox="0 0 24 24" fill="none">

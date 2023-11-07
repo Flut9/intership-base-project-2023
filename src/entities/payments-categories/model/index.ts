@@ -1,1 +1,1 @@
-export { usePaymentsCategories } from "./use-payments-categories"
+export { usePaymentsCategories } from './use-payments-categories'

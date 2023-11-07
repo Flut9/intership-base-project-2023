@@ -1,1 +1,1 @@
-export { validateAmount } from "./validate-amount"
+export { validateAmount } from './validate-amount'

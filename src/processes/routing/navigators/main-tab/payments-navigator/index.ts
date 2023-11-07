@@ -1,1 +1,1 @@
-export { PaymentsNavigator } from "./payments-navigator"
+export { PaymentsNavigator } from './payments-navigator'

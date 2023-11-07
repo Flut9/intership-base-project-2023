@@ -2,6 +2,7 @@ import React from 'react'
 import Svg, { Path } from 'react-native-svg'
 
 import { TBaseIconProps } from './types'
+
 export const IconRecoverPassword = ({ size, color }: TBaseIconProps) => {
   return (
     <Svg width={size ?? 25} height={size ?? 25} viewBox="0 0 25 25" fill="none">

@@ -1,1 +1,1 @@
-export { useSearchPaymentServices } from "./model"
+export { useSearchPaymentServices } from './model'

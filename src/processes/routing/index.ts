@@ -1,1 +1,1 @@
-export { MainTabNavigator } from "./navigators"
+export { MainTabNavigator } from './navigators'

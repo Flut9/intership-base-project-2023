@@ -1,1 +1,1 @@
-export { formatPhonenumber } from "./phone-formatter"
+export { formatPhonenumber } from './phone-formatter'

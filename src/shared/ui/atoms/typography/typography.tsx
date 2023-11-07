@@ -1,5 +1,6 @@
-import { StyleProp, TextStyle } from 'react-native'
 import React, { ReactNode } from 'react'
+import { StyleProp, TextStyle } from 'react-native'
+
 import { styled } from '@shared/ui/theme'
 import { TypographyVariants } from '@shared/ui/theme/types'
 

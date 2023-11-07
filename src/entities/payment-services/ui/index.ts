@@ -1,1 +1,1 @@
-export { PaymentServiceRow } from "./payment-service-row";
+export { PaymentServiceRow } from './payment-service-row'

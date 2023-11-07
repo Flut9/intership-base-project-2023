@@ -1,1 +1,1 @@
-export { PaymentServiceRow } from "./ui"
+export { PaymentServiceRow } from './ui'

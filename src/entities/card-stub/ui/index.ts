@@ -1,1 +1,1 @@
-export { CardStub } from "./card-stub"
+export { CardStub } from './card-stub'

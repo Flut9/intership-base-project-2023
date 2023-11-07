@@ -1,7 +1,8 @@
 import React from 'react'
-import Svg, { Path, Mask, G, Rect } from 'react-native-svg'
+import Svg, { G, Mask, Path, Rect } from 'react-native-svg'
 
 import { TBaseIconProps } from './types'
+
 export const IconFingerprint = ({ size, color }: TBaseIconProps) => {
   return (
     <Svg width={size ?? 24} height={size ?? 24} viewBox="0 0 24 24" fill="none">
