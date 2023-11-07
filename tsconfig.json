@@ -31,7 +31,8 @@
       "@widgets/*": ["widgets/*"]
     },
     "types": [
-      "styled-components-react-native"
+      "styled-components-react-native",
+      "jest"
     ]
   },
   "include": ["src"]

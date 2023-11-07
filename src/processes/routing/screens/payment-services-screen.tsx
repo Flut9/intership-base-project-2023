@@ -10,8 +10,7 @@ export const PaymentServicesScreen = ({ navigation, route }: PaymentServicesScre
 
     useEffect(() => {
         navigation.setOptions({
-            title: category.category_name,
-            headerLeft: () => <BackButton onPress={() => navigation.goBack()} />
+            title: category.category_name
         })
     }, [navigation, category])
 

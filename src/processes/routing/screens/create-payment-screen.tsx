@@ -9,8 +9,7 @@ export const CreatePaymentScreen = ({ navigation, route }: CreatePaymentScreenPr
 
     useEffect(() => {
         navigation.setOptions({
-            title: selectedService.service_name,
-            headerLeft: () => <BackButton onPress={() => navigation.goBack()} />
+            title: selectedService.service_name
         })
     }, [navigation, selectedService])
 

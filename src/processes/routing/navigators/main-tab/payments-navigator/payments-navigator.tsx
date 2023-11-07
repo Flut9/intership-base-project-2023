@@ -1,3 +1,4 @@
+import { useLayoutEffect } from "react"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native"
 import { PaymentsScreen } from "@processes/routing/screens"
@@ -6,8 +7,8 @@ import { useTheme } from "@shared/hooks"
 import { PaymentServicesScreen } from "@processes/routing/screens"
 import { PaymentsStackParams } from "@processes/routing/types"
 import { PaymentsNavigationProps } from "@processes/routing/types"
+import { BackButton } from "@shared/ui/atoms"
 import styled from "styled-components/native"
-import { useLayoutEffect } from "react"
 
 const PaymentsStack = createNativeStackNavigator<PaymentsStackParams>()
 
@@ -52,11 +53,17 @@ export const PaymentsNavigator = ({ navigation, route }: PaymentsNavigationProps
                 <PaymentsStack.Screen
                     component={PaymentServicesScreen}
                     name="PaymentServices"
+                    options={({ navigation }) => ({
+                        headerLeft: () => <BackButton onPress={navigation.goBack} />
+                    })}
                 />
 
                 <PaymentsStack.Screen
                     component={CreatePaymentScreen}
                     name="CreatePayment"
+                    options={({ navigation }) => ({
+                        headerLeft: () => <BackButton onPress={navigation.goBack} />
+                    })}
                 />
             </PaymentsStack.Navigator>
         </Wrapper>
