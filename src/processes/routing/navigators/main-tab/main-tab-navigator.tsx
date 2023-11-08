@@ -16,10 +16,6 @@ import {
 
 import { PaymentsNavigator } from './payments-navigator'
 
-const Wrapper = styled.View`
-  flex: 1;
-`
-
 const MainTabStack = createBottomTabNavigator<MainTabStackParams>()
 
 export const MainTabNavigator = () => {
@@ -80,3 +76,7 @@ export const MainTabNavigator = () => {
     </Wrapper>
   )
 }
+
+const Wrapper = styled.View`
+  flex: 1;
+`

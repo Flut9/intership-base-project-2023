@@ -16,10 +16,7 @@ type Props = {
 export const PaymentsConnector = ({ onCategoryClick }: Props) => {
   const { paymentCategories, isLoading } = usePaymentsCategories()
 
-  const paymentCategoriesUI = useMemo(
-    () => paymentCategories.map(mapPaymentCategoryToUI),
-    [paymentCategories],
-  )
+  const paymentCategoriesUI = useMemo(() => paymentCategories.map(mapPaymentCategoryToUI), [paymentCategories, mapPaymentCategoryToUI])
 
   const handleCategoryClick = useCallback(
     (id: string) => {

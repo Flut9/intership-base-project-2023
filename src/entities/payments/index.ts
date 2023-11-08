@@ -1,0 +1,1 @@
+export { $paymentCategories, fetchPaymentCategoriesFx } from "./model"
