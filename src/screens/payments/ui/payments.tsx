@@ -19,7 +19,7 @@ export const Payments = ({ paymentCategories, onCategoryClick }: Props) => {
         <PaymentCategoryRow category={item} />
       </Pressable>
     ),
-    [onCategoryClick],
+    [onCategoryClick]
   )
 
   const getKeyExtractor = useCallback(

@@ -10,13 +10,13 @@ export const BackButton = (props: Props) => {
   const theme = useTheme()
 
   return (
-    <Pressable {...props}>
+    <Wrapper {...props}>
       <IconBack color={theme.palette.accent.tertiary} />
-    </Pressable>
+    </Wrapper>
   )
 }
 
-const Pressable = styled.Pressable`
+const Wrapper = styled.Pressable`
   display: flex;
   justify-content: center;
   align-items: center;
