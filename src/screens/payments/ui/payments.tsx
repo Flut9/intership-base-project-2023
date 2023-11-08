@@ -9,7 +9,7 @@ import { PaymentCategoryUI } from '@shared/api/payment-categories'
 
 type Props = {
   paymentCategories: PaymentCategoryUI[],
-  refreshing?: boolean,
+  refreshing: boolean,
   onRefresh: () => void,
   onCategoryClick: (id: string) => void
 }
