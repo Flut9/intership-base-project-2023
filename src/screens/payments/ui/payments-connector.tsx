@@ -8,6 +8,8 @@ import {
 } from '@shared/api/payment-categories'
 
 import { Payments } from './payments'
+import { useStore } from 'effector-react'
+import { fetchPaymentCategoriesFx } from '@entities/payments'
 
 type Props = {
   onCategoryClick: (category: PaymentCategoryAPI) => void
@@ -15,6 +17,7 @@ type Props = {
 
 export const PaymentsConnector = ({ onCategoryClick }: Props) => {
   const { paymentCategories, isLoading } = usePaymentsCategories()
+  const refreshing = useStore(fetchPaymentCategoriesFx.pending)
 
   const paymentCategoriesUI = useMemo(() => paymentCategories.map(mapPaymentCategoryToUI), [paymentCategories, mapPaymentCategoryToUI])
 
@@ -36,6 +39,8 @@ export const PaymentsConnector = ({ onCategoryClick }: Props) => {
   return (
     <Payments
       paymentCategories={paymentCategoriesUI}
+      refreshing={refreshing}
+      onRefresh={fetchPaymentCategoriesFx}
       onCategoryClick={handleCategoryClick}
     />
   )
