@@ -1,37 +1,16 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { MainTabNavigator } from '@processes/routing'
+
 import { styled } from '@shared/ui/theme'
-import { Typography } from '@shared/ui/atoms'
-import { useTheme } from '@shared/hooks'
 
 const Wrapper = styled.View`
   background-color: ${({ theme }) => theme.palette.background.primary};
   flex: 1;
-  padding: 16px;
 `
 
-const Stack = createNativeStackNavigator()
-
 export const AppNavigation = () => {
-  const theme = useTheme()
-
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: theme.palette.background.primary,
-        },
-        headerTintColor: theme.palette.text.primary,
-        headerShadowVisible: false,
-        headerBackTitleVisible: false,
-      }}
-    >
-      <Stack.Screen name="profile">
-        {(props) => (
-          <Wrapper {...props}>
-            <Typography variant="largeTitle">Profile page!</Typography>
-          </Wrapper>
-        )}
-      </Stack.Screen>
-    </Stack.Navigator>
+    <Wrapper>
+      <MainTabNavigator />
+    </Wrapper>
   )
 }

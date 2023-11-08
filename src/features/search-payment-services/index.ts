@@ -1,0 +1,1 @@
+export { useSearchPaymentServices } from './model'

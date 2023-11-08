@@ -1,10 +1,10 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
-import { styled } from '@shared/ui/theme'
+
 import { useTheme } from '@shared/hooks'
+import { styled } from '@shared/ui/theme'
 
 import { Typography } from '../atoms/typography'
-
 import * as icons from './index'
 
 const ListWrapper = styled.View`
