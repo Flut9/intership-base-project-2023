@@ -9,9 +9,10 @@ import { PaymentCategoryAPI } from '@shared/api/payment-categories'
 
 export const PaymentsScreen = ({ navigation, route }: PaymentsScreenProps) => {
   const onCategoryClick = useCallback(
-    (paymentCategory: PaymentCategoryAPI) => {
+    (categoryId: string, categoryName: string) => {
       navigation.navigate('PaymentServices', {
-        category: paymentCategory,
+        categoryId,
+        categoryName
       })
     },
     [navigation],

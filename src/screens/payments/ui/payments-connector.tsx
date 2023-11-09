@@ -2,17 +2,12 @@ import { useCallback, useMemo } from 'react'
 
 import { usePaymentsCategories } from '@entities/payments-categories'
 
-import {
-  PaymentCategoryAPI,
-  mapPaymentCategoryToUI,
-} from '@shared/api/payment-categories'
+import { mapPaymentCategoryToUI } from '@shared/api/payment-categories'
 
 import { Payments } from './payments'
-import { useStore } from 'effector-react'
-import { fetchPaymentCategoriesFx } from '@entities/payments'
 
 type Props = {
-  onCategoryClick: (category: PaymentCategoryAPI) => void
+  onCategoryClick: (categoryId: string, categoryName: string) => void
 }
 
 export const PaymentsConnector = ({ onCategoryClick }: Props) => {
@@ -30,7 +25,10 @@ export const PaymentsConnector = ({ onCategoryClick }: Props) => {
         return
       }
 
-      onCategoryClick(clickedPaymentCategory)
+      onCategoryClick(
+        clickedPaymentCategory.category_id,
+        clickedPaymentCategory.category_name
+      )
     },
     [paymentCategories],
   )

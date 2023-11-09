@@ -21,7 +21,8 @@ export type PaymentsNavigationProps = BottomTabScreenProps<
 export type PaymentsStackParams = {
   Payments: undefined
   PaymentServices: {
-    category: PaymentCategoryAPI
+    categoryId: string,
+    categoryName: string
   }
   CreatePayment: {
     selectedService: PaymentServiceAPI

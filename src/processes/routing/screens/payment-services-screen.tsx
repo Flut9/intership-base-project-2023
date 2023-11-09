@@ -12,13 +12,13 @@ export const PaymentServicesScreen = ({
   navigation,
   route,
 }: PaymentServicesScreenProps) => {
-  const { category } = route.params
+  const { categoryId, categoryName } = route.params
 
   useEffect(() => {
     navigation.setOptions({
-      title: category.category_name,
+      title: categoryName,
     })
-  }, [navigation, category])
+  }, [navigation, categoryName])
 
   const onServiceClick = useCallback(
     (selectedService: PaymentServiceAPI) => {
@@ -33,7 +33,7 @@ export const PaymentServicesScreen = ({
     <Wrapper>
       <PaymentServicesConnector
         onServiceClick={onServiceClick}
-        services={category.services}
+        categoryId={categoryId}
       />
     </Wrapper>
   )
