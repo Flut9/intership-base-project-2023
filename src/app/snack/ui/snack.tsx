@@ -54,6 +54,7 @@ const Wrapper = styled.View<{ isShowing: boolean, paddingTop: number }>`
     z-index: 10;
     background-color: #FB6176;
     border-radius: 20px;
+    box-shadow: 0px 6px 40px rgba(0, 0, 0, 0.3);
 `
 
 const MessageText = styled(Typography)`
