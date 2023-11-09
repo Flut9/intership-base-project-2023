@@ -3,7 +3,7 @@ import { PaymentCategoryAPI } from "@shared/api/payment-categories"
 import { getPaymentCategories } from "@shared/api/payment-categories"
 import { persist } from "effector-storage"
 import { storageAdapter } from "@shared/lib"
-import { addSnack } from "@app/snack/model/store"
+import { addSnack } from "@entities/snack/model/store"
 
 export const $paymentCategories = createStore<PaymentCategoryAPI[]>([])
 export const $lastRefreshDate = createStore<number>(0)

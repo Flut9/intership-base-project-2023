@@ -14,7 +14,7 @@ import { PrimaryButton } from '@shared/ui/molecules'
 
 import { validate } from '../lib'
 import { ValidFieldsType } from '../lib'
-import { addSnack } from '@app/snack'
+import { addSnack } from '@entities/snack'
 
 type Props = {
   selectedService: PaymentServiceUI

@@ -1,6 +1,6 @@
 import { MainTabNavigator } from '@processes/routing'
 
-import { Snack } from '@app/snack'
+import { Snack } from '@entities/snack'
 import { styled } from '@shared/ui/theme'
 
 const Wrapper = styled.View`
