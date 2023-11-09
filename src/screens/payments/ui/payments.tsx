@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { Pressable, RefreshControl } from 'react-native'
+import { Pressable } from 'react-native'
 import { ListRenderItemInfo } from 'react-native/types'
 import styled from 'styled-components/native'
 
@@ -9,12 +9,10 @@ import { PaymentCategoryUI } from '@shared/api/payment-categories'
 
 type Props = {
   paymentCategories: PaymentCategoryUI[],
-  refreshing: boolean,
-  onRefresh: () => void,
   onCategoryClick: (id: string) => void
 }
 
-export const Payments = ({ paymentCategories, onCategoryClick, refreshing, onRefresh }: Props) => {
+export const Payments = ({ paymentCategories, onCategoryClick }: Props) => {
   const renderListItem = useCallback(
     ({ item }: ListRenderItemInfo<PaymentCategoryUI>) => (
       <Pressable onPress={() => onCategoryClick(item.id)}>
@@ -35,14 +33,6 @@ export const Payments = ({ paymentCategories, onCategoryClick, refreshing, onRef
         data={paymentCategories}
         renderItem={renderListItem}
         keyExtractor={getKeyExtractor}
-        refreshing={refreshing}
-        refreshControl={(
-          <RefreshControl 
-            tintColor={'#fff'} 
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
-        )}
       />
     </Wrapper>
   )

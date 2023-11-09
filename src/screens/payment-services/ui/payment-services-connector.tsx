@@ -9,6 +9,8 @@ import {
 } from '@shared/api/payment-categories'
 
 import { PaymentServices } from './payment-services'
+import { fetchPaymentCategoriesFx } from '@entities/payments'
+import { useStore } from 'effector-react'
 
 type Props = {
   services: PaymentServiceAPI[]
@@ -19,6 +21,8 @@ export const PaymentServicesConnector = ({
   services,
   onServiceClick,
 }: Props) => {
+  const refreshing = useStore(fetchPaymentCategoriesFx.pending)
+
   const servicesUI = useMemo(
     () => services.map(mapPaymentServiceToUI),
     [services],
@@ -45,6 +49,8 @@ export const PaymentServicesConnector = ({
     <PaymentServices
       services={filteredServices}
       searchText={searchText}
+      refreshing={refreshing}
+      onRefresh={fetchPaymentCategoriesFx}
       onServiceClick={handleServiceClick}
       onSearchBarChange={setSearchText}
     />

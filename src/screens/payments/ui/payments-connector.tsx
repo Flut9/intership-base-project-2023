@@ -17,7 +17,6 @@ type Props = {
 
 export const PaymentsConnector = ({ onCategoryClick }: Props) => {
   const { paymentCategories, isLoading } = usePaymentsCategories()
-  const refreshing = useStore(fetchPaymentCategoriesFx.pending)
 
   const paymentCategoriesUI = useMemo(() => paymentCategories.map(mapPaymentCategoryToUI), [paymentCategories, mapPaymentCategoryToUI])
 
@@ -39,8 +38,6 @@ export const PaymentsConnector = ({ onCategoryClick }: Props) => {
   return (
     <Payments
       paymentCategories={paymentCategoriesUI}
-      refreshing={refreshing}
-      onRefresh={fetchPaymentCategoriesFx}
       onCategoryClick={handleCategoryClick}
     />
   )
