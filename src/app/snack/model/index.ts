@@ -1,1 +1,5 @@
-export { $snackMessage, $snackShowing, changeSnackShowing, changeSnackMessage } from "./store"
+export { 
+    $snacks,
+    addSnack,
+    removeShowedSnack
+} from "./store"

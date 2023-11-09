@@ -2,24 +2,37 @@ import { useTheme } from "@shared/hooks"
 import { Typography } from "@shared/ui/atoms"
 import { IconClose } from "@shared/ui/icons"
 import { useStore } from "effector-react"
-import { useCallback } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import styled from "styled-components/native"
-import { $snackMessage, $snackShowing, changeSnackShowing } from "../model"
+import { $snacks, removeShowedSnack } from "../model/store"
 
 export const Snack = () => {
     const theme = useTheme()
     const safeAreaInsets = useSafeAreaInsets()
-    const message = useStore($snackMessage)
-    const isShowing = useStore($snackShowing)
+    const [isShowing, setShowing] = useState(false)
+    const snacks = useStore($snacks)
+    const timeout = useRef()
+
+    useEffect(() => {
+        clearTimeout(timeout.current)
+        if (snacks.length) {
+            setShowing(true)
+            timeout.current = setTimeout(() => {
+                removeShowedSnack()
+            }, snacks[0].durationToHide)
+        } else {
+            setShowing(false)
+        }
+    }, [snacks])
 
     const onCloseButtonClick = useCallback(() => {
-        changeSnackShowing(false)
-    }, [changeSnackShowing])
+        removeShowedSnack()
+    }, [snacks])
 
     return (
         <Wrapper isShowing={isShowing} paddingTop={safeAreaInsets.top}>
-            <MessageText variant="body15Regular">{message}</MessageText>
+            <MessageText variant="body15Regular">{snacks[0]?.message ?? ""}</MessageText>
             <CloseButton onPress={onCloseButtonClick}>
                 <IconClose color={theme.palette.button.secondary} size={16} />
             </CloseButton>
