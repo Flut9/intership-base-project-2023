@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { Pressable } from 'react-native'
 import { ListRenderItemInfo } from 'react-native/types'
-import styled from 'styled-components/native'
+import { styled } from '@shared/ui/theme'
 
 import { PaymentCategoryRow } from '@entities/payments-categories'
 

@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import { Alert, Platform } from 'react-native'
-import styled from 'styled-components/native'
+import { styled } from '@shared/ui/theme'
 
 import { PhoneInput } from '@features/phone-input'
 import { useFormatPhoneNumber } from '@features/phone-input'

@@ -1,5 +1,5 @@
 import { PressableProps } from 'react-native/types'
-import styled from 'styled-components/native'
+import { styled } from '@shared/ui/theme'
 
 import { useTheme } from '@shared/hooks'
 import { IconBack } from '@shared/ui/icons'

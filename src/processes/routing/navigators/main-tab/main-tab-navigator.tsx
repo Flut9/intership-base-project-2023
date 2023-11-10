@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { ATMs } from 'screens/atms'
 import { Home } from 'screens/home'
 import { Profile } from 'screens/profile'
-import styled from 'styled-components/native'
+import { styled } from '@shared/ui/theme'
 
 import { MainTabStackParams } from '@processes/routing/types'
 

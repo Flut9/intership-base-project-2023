@@ -12,7 +12,7 @@ export const Snack = () => {
     const safeAreaInsets = useSafeAreaInsets()
     const [isShowing, setShowing] = useState(false)
     const snacks = useStore($snacks)
-    const timeout = useRef()
+    const timeout = useRef(0)
 
     useEffect(() => {
         clearTimeout(timeout.current)

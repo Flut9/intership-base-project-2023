@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
-import { ListRenderItemInfo, Platform, Pressable, RefreshControl } from 'react-native'
-import styled from 'styled-components/native'
+import { FlatList, ListRenderItemInfo, Platform, Pressable, RefreshControl } from 'react-native'
+import { styled } from '@shared/ui/theme'
 
 import { PaymentServiceRow } from '@entities/payment-services'
 
@@ -87,7 +87,7 @@ const SearchBarWrapper = styled.View`
 
 const ServicesList = styled.FlatList`
   flex: 1;
-`
+` as typeof FlatList
 
 const EmptyWrapper = styled.View`
   flex: 1;

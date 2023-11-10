@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react'
-import styled from 'styled-components/native'
+import { styled } from '@shared/ui/theme'
 
 import { PaymentServicesScreenProps } from '@processes/routing/types'
 
