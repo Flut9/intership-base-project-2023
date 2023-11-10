@@ -1,1 +1,1 @@
-export { $paymentCategories, fetchPaymentCategoriesFx, $lastRefreshDate } from "./store"
+export { $paymentCategories, $lastRefreshDate, addPaymentCategories } from "./store"
