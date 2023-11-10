@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
-import { ListRenderItemInfo, Platform, Pressable } from 'react-native'
-import styled from 'styled-components/native'
+import { FlatList, ListRenderItemInfo, Platform, Pressable, RefreshControl } from 'react-native'
+import { styled } from '@shared/ui/theme'
 
 import { PaymentServiceRow } from '@entities/payment-services'
 
@@ -9,15 +9,19 @@ import { Typography } from '@shared/ui/atoms'
 import { SearchBar } from '@shared/ui/molecules/search-bar/search-bar'
 
 type Props = {
-  services: PaymentServiceUI[]
-  searchText: string
-  onServiceClick: (id: string) => void
+  services: PaymentServiceUI[],
+  searchText: string,
+  refreshing: boolean,
+  onRefresh: () => void,
+  onServiceClick: (id: string) => void,
   onSearchBarChange: (searchText: string) => void
 }
 
 export const PaymentServices = ({
   services,
   searchText,
+  refreshing,
+  onRefresh,
   onServiceClick,
   onSearchBarChange,
 }: Props) => {
@@ -51,6 +55,14 @@ export const PaymentServices = ({
           data={services}
           renderItem={renderListItem}
           keyExtractor={getKeyExtractor}
+          refreshing={refreshing}
+          refreshControl={(
+            <RefreshControl 
+              tintColor={'#fff'} 
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+          )}
         />
       ) : (
         <EmptyWrapper>
@@ -75,7 +87,7 @@ const SearchBarWrapper = styled.View`
 
 const ServicesList = styled.FlatList`
   flex: 1;
-`
+` as typeof FlatList
 
 const EmptyWrapper = styled.View`
   flex: 1;

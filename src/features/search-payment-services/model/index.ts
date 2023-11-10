@@ -1,1 +1,1 @@
-export { useSearchPaymentServices } from './useSearchPaymentServices'
+export { useSearchPaymentServices } from './use-search-payment-services'

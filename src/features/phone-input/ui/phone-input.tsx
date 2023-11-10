@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import styled from 'styled-components/native'
+import { styled } from '@shared/ui/theme'
 
 import { useTheme } from '@shared/hooks'
 import { Input } from '@shared/ui/atoms'

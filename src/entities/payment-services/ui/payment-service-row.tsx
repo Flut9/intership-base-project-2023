@@ -1,4 +1,4 @@
-import styled from 'styled-components/native'
+import { styled } from '@shared/ui/theme'
 
 import { PaymentServiceUI } from '@shared/api/payment-categories'
 import { Typography } from '@shared/ui/atoms'

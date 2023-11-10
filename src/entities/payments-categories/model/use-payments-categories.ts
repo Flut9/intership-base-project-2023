@@ -1,26 +1,22 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { $lastRefreshDate, fetchPaymentCategoriesFx } from '@entities/payments/model/store'
+import { $paymentCategories } from '@entities/payments/model'
+import { useStore } from 'effector-react'
 
-import { PaymentCategoryAPI } from '@shared/api/payment-categories'
-import { getPaymentCategories } from '@shared/api/payment-categories'
+const MS_IN_DAY = 86400000
 
 export const usePaymentsCategories = () => {
-  const [paymentCategories, setPaymentCategories] = useState<
-    PaymentCategoryAPI[]
-  >([])
-  const [isLoading, setLoading] = useState(false)
+  const paymentCategories = useStore($paymentCategories)
+  const isLoading = useStore(fetchPaymentCategoriesFx.pending)
+  const lastRefreshDate = useStore($lastRefreshDate)
 
   useEffect(() => {
-    fetchPaymentCategories()
+    if (!(Date.now() - lastRefreshDate >= MS_IN_DAY)) {
+      return
+    }
+
+    fetchPaymentCategoriesFx()
   }, [])
-
-  const fetchPaymentCategories = useCallback(async () => {
-    setLoading(true)
-
-    const response = await getPaymentCategories()
-
-    setPaymentCategories(response?.category ?? [])
-    setLoading(false)
-  }, [setPaymentCategories, getPaymentCategories])
 
   return { paymentCategories, isLoading }
 }

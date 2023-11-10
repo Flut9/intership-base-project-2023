@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import { Alert, Platform } from 'react-native'
-import styled from 'styled-components/native'
+import { styled } from '@shared/ui/theme'
 
 import { PhoneInput } from '@features/phone-input'
 import { useFormatPhoneNumber } from '@features/phone-input'
@@ -14,6 +14,7 @@ import { PrimaryButton } from '@shared/ui/molecules'
 
 import { validate } from '../lib'
 import { ValidFieldsType } from '../lib'
+import { addSnack } from '@entities/snack'
 
 type Props = {
   selectedService: PaymentServiceUI
@@ -38,11 +39,23 @@ export const CreatePayment = ({ selectedService }: Props) => {
     const validation = validate(amount, formattedPhonenumber)
     setValidation(validation)
 
-    Alert.alert(
-      validation.isAmountValid && validation.isPhoneValid
-        ? 'Успех'
-        : 'Проверьте введенный данные',
-    )
+    if (validation.isAmountValid && validation.isPhoneValid) {
+      Alert.alert("Успех")
+    }
+
+    if (!validation.isPhoneValid) {
+      addSnack({
+        message: "Некорректно введен номер телефона",
+        durationToHide: 3000
+      })
+    }
+
+    if (!validation.isAmountValid) {
+      addSnack({
+        message: "Некорректная сумма",
+        durationToHide: 3000
+      })
+    }
   }, [amount, formattedPhonenumber, setValidation, validate])
 
   const onAmountChange = useCallback(

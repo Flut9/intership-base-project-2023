@@ -1,5 +1,5 @@
 import { PressableProps } from 'react-native/types'
-import styled from 'styled-components/native'
+import { styled } from '@shared/ui/theme'
 
 import { useTheme } from '@shared/hooks'
 import { IconBack } from '@shared/ui/icons'
@@ -10,13 +10,13 @@ export const BackButton = (props: Props) => {
   const theme = useTheme()
 
   return (
-    <Pressable {...props}>
+    <Wrapper {...props}>
       <IconBack color={theme.palette.accent.tertiary} />
-    </Pressable>
+    </Wrapper>
   )
 }
 
-const Pressable = styled.Pressable`
+const Wrapper = styled.Pressable`
   display: flex;
   justify-content: center;
   align-items: center;

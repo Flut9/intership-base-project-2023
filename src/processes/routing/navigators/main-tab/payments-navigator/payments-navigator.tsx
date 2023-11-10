@@ -1,7 +1,7 @@
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useLayoutEffect } from 'react'
-import styled from 'styled-components/native'
+import { styled } from '@shared/ui/theme'
 
 import { PaymentsScreen } from '@processes/routing/screens'
 import { CreatePaymentScreen } from '@processes/routing/screens'
