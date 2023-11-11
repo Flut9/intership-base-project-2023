@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo } from 'react'
 
 import { usePaymentsCategories } from '@entities/payments-categories'
 
-import { mapPaymentCategoryToUI } from '@shared/api/payment-categories'
+import { mapPaymentCategoryToUI, PaymentCategoryUI } from '@shared/api/payment-categories'
 
 import { Payments } from './payments'
 import axios from 'axios'
@@ -18,22 +18,15 @@ export const PaymentsConnector = ({ onCategoryClick }: Props) => {
     isLoading
   } = usePaymentsCategories()
 
-  if (!paymentCategories) {
-    console.log(1)
-    return
-  }
-
-  console.log(2)
+  const paymentCategoriesUI = useMemo(() => paymentCategories?.map(mapPaymentCategoryToUI), [paymentCategories, mapPaymentCategoryToUI])
 
   useEffect(() => {
-    addPaymentCategories(paymentCategories)
-  }, [paymentCategories])
-
-  const paymentCategoriesUI = useMemo(() => paymentCategories.map(mapPaymentCategoryToUI), [paymentCategories, mapPaymentCategoryToUI])
+    addPaymentCategories(paymentCategories ?? [])
+  }, [paymentCategories, addPaymentCategories])
 
   const handleCategoryClick = useCallback(
     (id: string) => {
-      const clickedPaymentCategory = paymentCategories.find(
+      const clickedPaymentCategory = paymentCategories?.find(
         (category) => category.category_id === id,
       )
 
@@ -46,12 +39,12 @@ export const PaymentsConnector = ({ onCategoryClick }: Props) => {
         clickedPaymentCategory.category_name
       )
     },
-    [paymentCategories],
+    [paymentCategoriesUI, onCategoryClick],
   )
 
   return (
     <Payments
-      paymentCategories={paymentCategoriesUI}
+      paymentCategories={paymentCategoriesUI ?? []}
       onCategoryClick={handleCategoryClick}
     />
   )

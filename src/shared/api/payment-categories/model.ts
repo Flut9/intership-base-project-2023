@@ -1,10 +1,10 @@
-import axios from 'axios'
+import { api } from '@shared/config/api'
 
 import { PaymentCategoriesAPI } from './types'
 
 export const getPaymentCategories = async () => {
-  const response = await axios.get<PaymentCategoriesAPI>(
+  const response = await api.get<PaymentCategoriesAPI>(
     '/core/payment/list',
   )
-  return response.data
+  return response.data.category
 }
