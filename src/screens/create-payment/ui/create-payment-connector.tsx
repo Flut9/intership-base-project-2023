@@ -11,10 +11,11 @@ import { useUpdateHistory } from "@features/create-payment"
 import { addSnack } from '@entities/snack'
 
 type Props = {
-  selectedService: PaymentServiceAPI
+  selectedService: PaymentServiceAPI,
+  onPaymentCreated: (amount: number, isSucceeded: boolean) => void
 }
 
-export const CreatePaymentConnector = ({ selectedService }: Props) => {
+export const CreatePaymentConnector = ({ selectedService, onPaymentCreated }: Props) => {
   const {
     paymentOperator,
     isLoading
@@ -39,6 +40,7 @@ export const CreatePaymentConnector = ({ selectedService }: Props) => {
       period_to: ""
     }, {
       onSuccess: (data) => {
+        onPaymentCreated(amount, data.success)
       },
       onError: _ => {
         addSnack({
@@ -47,7 +49,7 @@ export const CreatePaymentConnector = ({ selectedService }: Props) => {
         })
       }
     })
-  }, [selectedService, paymentOperator, addSnack])
+  }, [selectedService, paymentOperator, addSnack, onPaymentCreated])
 
   return (
     <CreatePayment 

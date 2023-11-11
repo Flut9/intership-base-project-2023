@@ -1,11 +1,9 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { styled } from '@shared/ui/theme'
 
 import { CreatePaymentScreenProps } from '@processes/routing/types'
 
 import { CreatePaymentConnector } from '@screens/create-payment'
-
-import { BackButton } from '@shared/ui/atoms'
 
 export const CreatePaymentScreen = ({
   navigation,
@@ -19,9 +17,19 @@ export const CreatePaymentScreen = ({
     })
   }, [navigation, selectedService])
 
+  const onPaymentCreated = useCallback((amount: number, isSucceeded: boolean) => {
+    navigation.navigate("PaymentStatus", {
+      amount,
+      isSucceeded
+    })
+  }, [navigation])
+
   return (
     <Wrapper>
-      <CreatePaymentConnector selectedService={selectedService} />
+      <CreatePaymentConnector 
+        selectedService={selectedService} 
+        onPaymentCreated={onPaymentCreated}
+      />
     </Wrapper>
   )
 }
