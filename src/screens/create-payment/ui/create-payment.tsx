@@ -19,10 +19,11 @@ import { Typography } from '@shared/ui/atoms'
 
 type Props = {
   selectedService: PaymentServiceUI,
-  cashbackPercentage: number
+  cashbackPercentage: number,
+  onContinue: (amount: number) => void
 }
 
-export const CreatePayment = ({ selectedService, cashbackPercentage }: Props) => {
+export const CreatePayment = ({ selectedService, cashbackPercentage, onContinue }: Props) => {
   const { formattedPhonenumber, setPhonenumber } = useFormatPhoneNumber('')
   const [amount, setAmount] = useState(0)
   const [validation, setValidation] = useState<ValidFieldsType>({
@@ -42,7 +43,7 @@ export const CreatePayment = ({ selectedService, cashbackPercentage }: Props) =>
     setValidation(validation)
 
     if (validation.isAmountValid && validation.isPhoneValid) {
-      Alert.alert("Успех")
+      onContinue(amount)
     }
 
     if (!validation.isPhoneValid) {
@@ -58,7 +59,7 @@ export const CreatePayment = ({ selectedService, cashbackPercentage }: Props) =>
         durationToHide: 3000
       })
     }
-  }, [amount, formattedPhonenumber, setValidation, validate])
+  }, [amount, formattedPhonenumber, setValidation, validate, onContinue])
 
   const onAmountChange = useCallback(
     (amount: number) => {

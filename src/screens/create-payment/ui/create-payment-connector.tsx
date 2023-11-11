@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 
 import {
   PaymentServiceAPI,
@@ -7,7 +7,8 @@ import {
 
 import { CreatePayment } from './create-payment'
 import { usePaymentOperator } from '@entities/payment-services'
-import { mapPaymentOperatorToUI } from '@shared/api/payment-services'
+import { useUpdateHistory } from "@features/create-payment"
+import { addSnack } from '@entities/snack'
 
 type Props = {
   selectedService: PaymentServiceAPI
@@ -19,15 +20,40 @@ export const CreatePaymentConnector = ({ selectedService }: Props) => {
     isLoading
   } = usePaymentOperator(parseInt(selectedService.service_id))
 
+  const {
+    updateHistory
+  } = useUpdateHistory()
+
   const selectedServiceUI = useMemo(
     () => mapPaymentServiceToUI(selectedService),
     [selectedService],
   )
 
+  const onContinue = useCallback((amount: number) => {
+    updateHistory({
+      card_id: 123,
+      service_id: selectedService.service_id,
+      size: amount,
+      size_cashback: paymentOperator?.cashback_percentage,
+      period_from: "",
+      period_to: ""
+    }, {
+      onSuccess: (data) => {
+      },
+      onError: _ => {
+        addSnack({
+          message: "Что-то пошло не так",
+          durationToHide: 3000
+        })
+      }
+    })
+  }, [selectedService, paymentOperator, addSnack])
+
   return (
     <CreatePayment 
       selectedService={selectedServiceUI} 
       cashbackPercentage={paymentOperator?.cashback_percentage ?? 0}
+      onContinue={onContinue}
     />
   )
 }
