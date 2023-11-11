@@ -10,6 +10,7 @@ export const usePaymentsCategories = () => {
   const {
     data,
     error,
+    isError,
     isLoading
   } = useQuery<any, any, PaymentCategoryAPI[]>({
     queryKey: [PAYMENT_CATEGORIES_KEY],
@@ -18,7 +19,7 @@ export const usePaymentsCategories = () => {
   })
 
   useEffect(() => {
-    if (!error) {
+    if (!error || !isError) {
       return
     }
 
@@ -26,7 +27,7 @@ export const usePaymentsCategories = () => {
       message: "Что-то пошло не так",
       durationToHide: 3000
     })
-  }, [error])
+  }, [error, isError])
 
   return {
     paymentCategories: data,
