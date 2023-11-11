@@ -9,7 +9,7 @@ import {
 } from '@shared/api/payment-categories'
 
 import { PaymentServices } from './payment-services'
-import { $paymentCategories } from '@entities/payments'
+import { $paymentCategories, fetchPaymentCategoriesFx } from '@entities/payments'
 import { useStore } from 'effector-react'
 
 type Props = {
@@ -21,8 +21,7 @@ export const PaymentServicesConnector = ({
   categoryId,
   onServiceClick,
 }: Props) => {
-  // const refreshing = useStore(fetchPaymentCategoriesFx.pending)
-  const refreshing = false
+  const refreshing = useStore(fetchPaymentCategoriesFx.pending)
   const categories = useStore($paymentCategories)
 
   const services = useMemo(
@@ -58,8 +57,7 @@ export const PaymentServicesConnector = ({
       services={filteredServices}
       searchText={searchText}
       refreshing={refreshing}
-      // onRefresh={fetchPaymentCategoriesFx}
-      onRefresh={() => {}}
+      onRefresh={fetchPaymentCategoriesFx}
       onServiceClick={handleServiceClick}
       onSearchBarChange={setSearchText}
     />

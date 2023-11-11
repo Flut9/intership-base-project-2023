@@ -1,1 +1,1 @@
-export { $paymentCategories, $lastRefreshDate, addPaymentCategories } from "./model"
+export { $paymentCategories, $lastRefreshDate, addPaymentCategories, fetchPaymentCategoriesFx } from "./model"
