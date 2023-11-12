@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useLayoutEffect } from 'react'
 import { styled } from '@shared/ui/theme'
 
-import { PaymentsScreen } from '@processes/routing/screens'
+import { PaymentsScreen, PaymentStatusScreen } from '@processes/routing/screens'
 import { CreatePaymentScreen } from '@processes/routing/screens'
 import { PaymentServicesScreen } from '@processes/routing/screens'
 import { PaymentsStackParams } from '@processes/routing/types'
@@ -21,7 +21,7 @@ export const PaymentsNavigator = ({
   const theme = useTheme()
 
   useLayoutEffect(() => {
-    const routesWithoutTabbar = ['PaymentServices', 'CreatePayment']
+    const routesWithoutTabbar = ['PaymentServices', 'CreatePayment', "PaymentStatus"]
     const focusedRouteName = getFocusedRouteNameFromRoute(route)
 
     if (!focusedRouteName) {
@@ -71,6 +71,14 @@ export const PaymentsNavigator = ({
           options={({ navigation }) => ({
             headerLeft: () => <BackButton onPress={navigation.goBack} />,
           })}
+        />
+
+        <PaymentsStack.Screen
+          component={PaymentStatusScreen}
+          name="PaymentStatus"
+          options={{
+            headerShown: false
+          }}
         />
       </PaymentsStack.Navigator>
     </Wrapper>

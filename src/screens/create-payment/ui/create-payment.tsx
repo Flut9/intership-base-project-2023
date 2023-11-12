@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { Alert, Platform } from 'react-native'
 import { styled } from '@shared/ui/theme'
 
@@ -15,12 +15,15 @@ import { PrimaryButton } from '@shared/ui/molecules'
 import { validate } from '../lib'
 import { ValidFieldsType } from '../lib'
 import { addSnack } from '@entities/snack'
+import { Typography } from '@shared/ui/atoms'
 
 type Props = {
-  selectedService: PaymentServiceUI
+  selectedService: PaymentServiceUI,
+  cashbackPercentage: number,
+  onContinue: (amount: number) => void
 }
 
-export const CreatePayment = ({ selectedService }: Props) => {
+export const CreatePayment = ({ selectedService, cashbackPercentage, onContinue }: Props) => {
   const { formattedPhonenumber, setPhonenumber } = useFormatPhoneNumber('')
   const [amount, setAmount] = useState(0)
   const [validation, setValidation] = useState<ValidFieldsType>({
@@ -40,7 +43,7 @@ export const CreatePayment = ({ selectedService }: Props) => {
     setValidation(validation)
 
     if (validation.isAmountValid && validation.isPhoneValid) {
-      Alert.alert("Успех")
+      onContinue(amount)
     }
 
     if (!validation.isPhoneValid) {
@@ -56,7 +59,7 @@ export const CreatePayment = ({ selectedService }: Props) => {
         durationToHide: 3000
       })
     }
-  }, [amount, formattedPhonenumber, setValidation, validate])
+  }, [amount, formattedPhonenumber, setValidation, validate, onContinue])
 
   const onAmountChange = useCallback(
     (amount: number) => {
@@ -71,6 +74,10 @@ export const CreatePayment = ({ selectedService }: Props) => {
     },
     [setAmount],
   )
+
+  const cashbackStr = useMemo(() => {
+    return `Ваш кешбек составит ${cashbackPercentage}% - ${amount * (cashbackPercentage / 100)}`
+  }, [amount, cashbackPercentage])
 
   return (
     <Wrapper behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -95,10 +102,17 @@ export const CreatePayment = ({ selectedService }: Props) => {
                 onAmountChange={onAmountChange}
               />
             </AmountInputWrapper>
-            <ChipsList
-              values={[100, 500, 2500, 5000, 10000, 20000]}
-              onChipClick={onChipClick}
-            />
+            {!amount ? (
+              <ChipsList
+                values={[100, 500, 2500, 5000, 10000, 20000]}
+                onChipClick={onChipClick}
+              />
+            ) : (
+              <CashbackWrapper>
+                <CashbackText variant='caption1'>{cashbackStr}</CashbackText>
+              </CashbackWrapper>
+            )
+            }
           </AmountWrapper>
         </FormWrapper>
 
@@ -136,6 +150,15 @@ const AmountWrapper = styled.View`
 
 const AmountInputWrapper = styled.View`
   padding: 16px;
+`
+
+const CashbackWrapper = styled.View`
+  flex: 1;
+  padding: 0 16px;
+`
+
+const CashbackText = styled(Typography)`
+  color: ${({ theme }) => theme.palette.text.secondary};
 `
 
 const ButtonWrapper = styled.View`

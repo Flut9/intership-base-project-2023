@@ -1,22 +1,36 @@
 import { useEffect } from 'react'
-import { $lastRefreshDate, fetchPaymentCategoriesFx } from '@entities/payments/model/store'
-import { $paymentCategories } from '@entities/payments/model'
-import { useStore } from 'effector-react'
+import { useQuery } from '@tanstack/react-query'
+import { getPaymentCategories, PaymentCategoryAPI } from '@shared/api/payment-categories'
+import { addSnack } from '@entities/snack'
 
 const MS_IN_DAY = 86400000
+const PAYMENT_CATEGORIES_KEY = "paymentCategories"
 
 export const usePaymentsCategories = () => {
-  const paymentCategories = useStore($paymentCategories)
-  const isLoading = useStore(fetchPaymentCategoriesFx.pending)
-  const lastRefreshDate = useStore($lastRefreshDate)
+  const {
+    data,
+    error,
+    isError,
+    isLoading
+  } = useQuery<any, any, PaymentCategoryAPI[]>({
+    queryKey: [PAYMENT_CATEGORIES_KEY],
+    queryFn: () => getPaymentCategories(),
+    staleTime: MS_IN_DAY
+  })
 
   useEffect(() => {
-    if (!(Date.now() - lastRefreshDate >= MS_IN_DAY)) {
+    if (!error || !isError) {
       return
     }
 
-    fetchPaymentCategoriesFx()
-  }, [])
+    addSnack({
+      message: "Что-то пошло не так",
+      durationToHide: 3000
+    })
+  }, [error, isError])
 
-  return { paymentCategories, isLoading }
+  return {
+    paymentCategories: data,
+    isLoading
+  }
 }

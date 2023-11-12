@@ -8,6 +8,7 @@ import { addSnack } from "@entities/snack/model/store"
 export const $paymentCategories = createStore<PaymentCategoryAPI[]>([])
 export const $lastRefreshDate = createStore<number>(0)
 
+export const addPaymentCategories = createEvent<PaymentCategoryAPI[]>()
 export const fetchPaymentCategoriesFx = createEffect(async () => {
     try {
         return await getPaymentCategories()
@@ -19,7 +20,8 @@ export const fetchPaymentCategoriesFx = createEffect(async () => {
     }
 })
 
-$paymentCategories.on(fetchPaymentCategoriesFx.doneData, (_, payload) => payload?.category ?? [])
+$paymentCategories.on(addPaymentCategories, (_, payload) => [...payload])
+$paymentCategories.on(fetchPaymentCategoriesFx.doneData, (_, payload) => [...payload ?? []])
 $lastRefreshDate.on($paymentCategories, _ => Date.now())
 
 persist({

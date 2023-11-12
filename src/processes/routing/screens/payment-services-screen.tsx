@@ -6,7 +6,6 @@ import { PaymentServicesScreenProps } from '@processes/routing/types'
 import { PaymentServicesConnector } from '@screens/payment-services'
 
 import { PaymentServiceAPI } from '@shared/api/payment-categories'
-import { BackButton } from '@shared/ui/atoms'
 
 export const PaymentServicesScreen = ({
   navigation,
