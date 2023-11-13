@@ -15,6 +15,15 @@ export type PaymentsNavigationProps = BottomTabScreenProps<
   'PaymentsNavigation'
 >
 
+export type AuthStackParams = {
+  PhoneAuth: undefined
+}
+
+export type PhoneAuthScreenProps = NativeStackScreenProps<
+  AuthStackParams,
+  "PhoneAuth"
+>
+
 export type PaymentsStackParams = {
   Payments: undefined
   PaymentServices: {
