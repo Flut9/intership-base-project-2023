@@ -14,3 +14,4 @@ export type TypographyVariants =
   | 'caption1'
   | 'caption2'
   | 'button'
+  | 'keyboardButton'

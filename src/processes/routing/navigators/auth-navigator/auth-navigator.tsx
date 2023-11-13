@@ -22,6 +22,7 @@ export const AuthNavigator = () => {
     )
 }
 
-const Wrapper = styled.SafeAreaView`
+const Wrapper = styled.View`
     flex: 1;
+    background-color: ${({ theme }) => theme.palette.background.secondary};
 ` 

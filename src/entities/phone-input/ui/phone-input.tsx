@@ -8,10 +8,11 @@ import { useState, useCallback } from "react"
 type Props = {
     phonenumber: string,
     isShowingLoader: boolean,
+    isValid: boolean,
     onPhoneChange: (phonenumber: string) => void
 }
 
-export const PhoneInput = ({ phonenumber, isShowingLoader, onPhoneChange }: Props) => {
+export const PhoneInput = ({ phonenumber, isShowingLoader, isValid, onPhoneChange }: Props) => {
     const theme = useTheme()
     const [isFocused, setFocused] = useState(false)
     
@@ -27,11 +28,15 @@ export const PhoneInput = ({ phonenumber, isShowingLoader, onPhoneChange }: Prop
         <Wrapper>
             <StyledIconUser 
                 size={24} 
-                color={theme.palette.accent.primary} 
+                color={isValid ? theme.palette.accent.primary : theme.palette.indicator.error} 
             />
             <StyledInput 
                 value={!isFocused && phonenumber.length === 3 ? '' : phonenumber}
                 placeholder="Телефон"
+                placeholderTextColor={
+                    isValid ? theme.palette.text.tertiary : theme.palette.indicator.error
+                }
+                isValid={isValid}
                 onChangeText={onPhoneChange}
                 onFocus={onFocus}
                 onEndEditing={onEndEdition}
@@ -52,9 +57,10 @@ const Wrapper = styled.View`
 
 const StyledIconUser = styled(IconPhone)``
 
-const StyledInput = styled(Input)`
+const StyledInput = styled(Input)<{ isValid: boolean }>`
     margin-left: 16px;
     margin-right: 16px;
+    color: ${({ theme, isValid }) => isValid ? theme.palette.text.primary : theme.palette.indicator.error};
 `
 
 const StyledLoader = styled(Loader)``

@@ -1,1 +1,1 @@
-export { useUpdateHistory } from './useUpdateHistory'
+export { useUpdateHistory } from './use-update-history'
