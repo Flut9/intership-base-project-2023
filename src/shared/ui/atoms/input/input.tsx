@@ -1,7 +1,7 @@
 import { TextInputProps } from 'react-native/types'
-import { styled } from '@shared/ui/theme'
 
 import { useTheme } from '@shared/hooks'
+import { styled } from '@shared/ui/theme'
 
 type Props = TextInputProps
 

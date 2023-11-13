@@ -1,5 +1,5 @@
 export {
-    type PaymentOperatorAPI,
-    type PaymentOperatorUI, 
-    mapPaymentOperatorToUI
-} from "./types"
+  type PaymentOperatorAPI,
+  type PaymentOperatorUI,
+  mapPaymentOperatorToUI,
+} from './types'

@@ -1,8 +1,8 @@
 import { useCallback } from 'react'
 import { ListRenderItemInfo } from 'react-native/types'
-import { styled } from '@shared/ui/theme'
 
 import { Typography } from '@shared/ui/atoms'
+import { styled } from '@shared/ui/theme'
 
 type Props = {
   values: number[]

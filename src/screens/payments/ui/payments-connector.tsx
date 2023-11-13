@@ -1,24 +1,27 @@
+import axios from 'axios'
 import { useCallback, useEffect, useMemo } from 'react'
 
+import { addPaymentCategories } from '@entities/payments'
 import { usePaymentsCategories } from '@entities/payments-categories'
 
-import { mapPaymentCategoryToUI, PaymentCategoryUI } from '@shared/api/payment-categories'
+import {
+  PaymentCategoryUI,
+  mapPaymentCategoryToUI,
+} from '@shared/api/payment-categories'
 
 import { Payments } from './payments'
-import axios from 'axios'
-import { addPaymentCategories } from '@entities/payments'
 
 type Props = {
   onCategoryClick: (categoryId: string, categoryName: string) => void
 }
 
 export const PaymentsConnector = ({ onCategoryClick }: Props) => {
-  const {
-    paymentCategories,
-    isLoading
-  } = usePaymentsCategories()
+  const { paymentCategories, isLoading } = usePaymentsCategories()
 
-  const paymentCategoriesUI = useMemo(() => paymentCategories?.map(mapPaymentCategoryToUI), [paymentCategories, mapPaymentCategoryToUI])
+  const paymentCategoriesUI = useMemo(
+    () => paymentCategories?.map(mapPaymentCategoryToUI),
+    [paymentCategories, mapPaymentCategoryToUI],
+  )
 
   useEffect(() => {
     addPaymentCategories(paymentCategories ?? [])
@@ -36,7 +39,7 @@ export const PaymentsConnector = ({ onCategoryClick }: Props) => {
 
       onCategoryClick(
         clickedPaymentCategory.category_id,
-        clickedPaymentCategory.category_name
+        clickedPaymentCategory.category_name,
       )
     },
     [paymentCategoriesUI, onCategoryClick],

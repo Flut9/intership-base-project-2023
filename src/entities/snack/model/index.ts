@@ -1,5 +1,1 @@
-export { 
-    $snacks,
-    addSnack,
-    removeShowedSnack
-} from "./store"
+export { $snacks, addSnack, removeShowedSnack } from './store'

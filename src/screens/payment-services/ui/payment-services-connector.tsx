@@ -1,6 +1,12 @@
+import { useStore } from 'effector-react'
 import { useCallback, useMemo } from 'react'
 
 import { useSearchPaymentServices } from '@features/search-payment-services'
+
+import {
+  $paymentCategories,
+  fetchPaymentCategoriesFx,
+} from '@entities/payments'
 
 import {
   PaymentServiceAPI,
@@ -9,11 +15,9 @@ import {
 } from '@shared/api/payment-categories'
 
 import { PaymentServices } from './payment-services'
-import { $paymentCategories, fetchPaymentCategoriesFx } from '@entities/payments'
-import { useStore } from 'effector-react'
 
 type Props = {
-  categoryId: string,
+  categoryId: string
   onServiceClick: (selectedService: PaymentServiceAPI) => void
 }
 
@@ -25,13 +29,15 @@ export const PaymentServicesConnector = ({
   const categories = useStore($paymentCategories)
 
   const services = useMemo(
-    () => categories.find(category => category.category_id === categoryId)?.services ?? [], 
-    [categories, categoryId]
+    () =>
+      categories.find((category) => category.category_id === categoryId)
+        ?.services ?? [],
+    [categories, categoryId],
   )
 
   const servicesUI = useMemo(
     () => services.map(mapPaymentServiceToUI),
-    [services]
+    [services],
   )
 
   const { filteredServices, searchText, setSearchText } =

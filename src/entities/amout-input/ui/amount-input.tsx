@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react'
-import { styled } from '@shared/ui/theme'
 
 import { Typography } from '@shared/ui/atoms'
+import { styled } from '@shared/ui/theme'
 
 type Props = {
   amount: number

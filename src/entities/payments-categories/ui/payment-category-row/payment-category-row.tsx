@@ -1,7 +1,6 @@
-import { styled } from '@shared/ui/theme'
-
 import { PaymentCategoryUI } from '@shared/api/payment-categories'
 import { Typography } from '@shared/ui/atoms'
+import { styled } from '@shared/ui/theme'
 
 type Props = {
   category: PaymentCategoryUI

@@ -1,8 +1,7 @@
-import { styled } from '@shared/ui/theme'
-
 import { useTheme } from '@shared/hooks'
 import { Typography } from '@shared/ui/atoms'
 import { IconCardWhite, IconChevronDown } from '@shared/ui/icons'
+import { styled } from '@shared/ui/theme'
 
 export const CardStub = () => {
   const theme = useTheme()

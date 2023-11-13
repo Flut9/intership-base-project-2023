@@ -1,11 +1,11 @@
 import { useCallback, useEffect } from 'react'
-import { styled } from '@shared/ui/theme'
 
 import { PaymentServicesScreenProps } from '@processes/routing/types'
 
 import { PaymentServicesConnector } from '@screens/payment-services'
 
 import { PaymentServiceAPI } from '@shared/api/payment-categories'
+import { styled } from '@shared/ui/theme'
 
 export const PaymentServicesScreen = ({
   navigation,

@@ -1,1 +1,1 @@
-export { usePaymentOperator } from "./use-payment-operator"
+export { usePaymentOperator } from './use-payment-operator'

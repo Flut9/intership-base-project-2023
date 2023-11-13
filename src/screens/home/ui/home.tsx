@@ -1,6 +1,5 @@
-import { styled } from '@shared/ui/theme'
-
 import { Typography } from '@shared/ui/atoms'
+import { styled } from '@shared/ui/theme'
 
 const Wrapper = styled.View`
   background-color: ${({ theme }) => theme.palette.background.primary};

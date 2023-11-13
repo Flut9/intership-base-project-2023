@@ -1,1 +1,1 @@
-export { PaymentStatusConnector } from "./payment-status-connector"
+export { PaymentStatusConnector } from './payment-status-connector'

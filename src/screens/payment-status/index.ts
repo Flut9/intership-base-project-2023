@@ -1,1 +1,1 @@
-export { PaymentStatusConnector } from "./ui"
+export { PaymentStatusConnector } from './ui'

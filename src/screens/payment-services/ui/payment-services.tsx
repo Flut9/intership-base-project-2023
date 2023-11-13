@@ -1,19 +1,25 @@
 import { useCallback } from 'react'
-import { FlatList, ListRenderItemInfo, Platform, Pressable, RefreshControl } from 'react-native'
-import { styled } from '@shared/ui/theme'
+import {
+  FlatList,
+  ListRenderItemInfo,
+  Platform,
+  Pressable,
+  RefreshControl,
+} from 'react-native'
 
 import { PaymentServiceRow } from '@entities/payment-services'
 
 import { PaymentServiceUI } from '@shared/api/payment-categories'
 import { Typography } from '@shared/ui/atoms'
 import { SearchBar } from '@shared/ui/molecules/search-bar/search-bar'
+import { styled } from '@shared/ui/theme'
 
 type Props = {
-  services: PaymentServiceUI[],
-  searchText: string,
-  refreshing: boolean,
-  onRefresh: () => void,
-  onServiceClick: (id: string) => void,
+  services: PaymentServiceUI[]
+  searchText: string
+  refreshing: boolean
+  onRefresh: () => void
+  onServiceClick: (id: string) => void
   onSearchBarChange: (searchText: string) => void
 }
 
@@ -56,13 +62,13 @@ export const PaymentServices = ({
           renderItem={renderListItem}
           keyExtractor={getKeyExtractor}
           refreshing={refreshing}
-          refreshControl={(
-            <RefreshControl 
-              tintColor={'#fff'} 
+          refreshControl={
+            <RefreshControl
+              tintColor={'#fff'}
               refreshing={refreshing}
               onRefresh={onRefresh}
             />
-          )}
+          }
         />
       ) : (
         <EmptyWrapper>

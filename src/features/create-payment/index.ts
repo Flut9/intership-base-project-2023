@@ -1,1 +1,1 @@
-export { useUpdateHistory } from "./model"
+export { useUpdateHistory } from './model'

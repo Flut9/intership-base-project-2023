@@ -1,9 +1,7 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
-import {
-  PaymentServiceAPI,
-} from '@shared/api/payment-categories'
+import { PaymentServiceAPI } from '@shared/api/payment-categories'
 
 export type MainTabStackParams = {
   Home: undefined
@@ -20,14 +18,14 @@ export type PaymentsNavigationProps = BottomTabScreenProps<
 export type PaymentsStackParams = {
   Payments: undefined
   PaymentServices: {
-    categoryId: string,
+    categoryId: string
     categoryName: string
   }
   CreatePayment: {
     selectedService: PaymentServiceAPI
   }
   PaymentStatus: {
-    amount: number,
+    amount: number
     isSucceeded: boolean
   }
 }

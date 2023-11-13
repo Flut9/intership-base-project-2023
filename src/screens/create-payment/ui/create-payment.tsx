@@ -1,6 +1,5 @@
 import { useCallback, useMemo, useState } from 'react'
 import { Alert, Platform } from 'react-native'
-import { styled } from '@shared/ui/theme'
 
 import { PhoneInput } from '@features/phone-input'
 import { useFormatPhoneNumber } from '@features/phone-input'
@@ -8,22 +7,27 @@ import { useFormatPhoneNumber } from '@features/phone-input'
 import { AmountInput } from '@entities/amout-input'
 import { CardStub } from '@entities/card-stub'
 import { ChipsList } from '@entities/chips-list'
+import { addSnack } from '@entities/snack'
 
 import { PaymentServiceUI } from '@shared/api/payment-categories'
+import { Typography } from '@shared/ui/atoms'
 import { PrimaryButton } from '@shared/ui/molecules'
+import { styled } from '@shared/ui/theme'
 
 import { validate } from '../lib'
 import { ValidFieldsType } from '../lib'
-import { addSnack } from '@entities/snack'
-import { Typography } from '@shared/ui/atoms'
 
 type Props = {
-  selectedService: PaymentServiceUI,
-  cashbackPercentage: number,
+  selectedService: PaymentServiceUI
+  cashbackPercentage: number
   onContinue: (amount: number) => void
 }
 
-export const CreatePayment = ({ selectedService, cashbackPercentage, onContinue }: Props) => {
+export const CreatePayment = ({
+  selectedService,
+  cashbackPercentage,
+  onContinue,
+}: Props) => {
   const { formattedPhonenumber, setPhonenumber } = useFormatPhoneNumber('')
   const [amount, setAmount] = useState(0)
   const [validation, setValidation] = useState<ValidFieldsType>({
@@ -48,15 +52,15 @@ export const CreatePayment = ({ selectedService, cashbackPercentage, onContinue 
 
     if (!validation.isPhoneValid) {
       addSnack({
-        message: "Некорректно введен номер телефона",
-        durationToHide: 3000
+        message: 'Некорректно введен номер телефона',
+        durationToHide: 3000,
       })
     }
 
     if (!validation.isAmountValid) {
       addSnack({
-        message: "Некорректная сумма",
-        durationToHide: 3000
+        message: 'Некорректная сумма',
+        durationToHide: 3000,
       })
     }
   }, [amount, formattedPhonenumber, setValidation, validate, onContinue])
@@ -76,7 +80,9 @@ export const CreatePayment = ({ selectedService, cashbackPercentage, onContinue 
   )
 
   const cashbackStr = useMemo(() => {
-    return `Ваш кешбек составит ${cashbackPercentage}% - ${amount * (cashbackPercentage / 100)}`
+    return `Ваш кешбек составит ${cashbackPercentage}% - ${
+      amount * (cashbackPercentage / 100)
+    }`
   }, [amount, cashbackPercentage])
 
   return (
@@ -109,10 +115,9 @@ export const CreatePayment = ({ selectedService, cashbackPercentage, onContinue 
               />
             ) : (
               <CashbackWrapper>
-                <CashbackText variant='caption1'>{cashbackStr}</CashbackText>
+                <CashbackText variant="caption1">{cashbackStr}</CashbackText>
               </CashbackWrapper>
-            )
-            }
+            )}
           </AmountWrapper>
         </FormWrapper>
 

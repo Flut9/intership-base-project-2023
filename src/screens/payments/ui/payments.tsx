@@ -1,14 +1,14 @@
 import { useCallback } from 'react'
 import { Pressable } from 'react-native'
 import { ListRenderItemInfo } from 'react-native/types'
-import { styled } from '@shared/ui/theme'
 
 import { PaymentCategoryRow } from '@entities/payments-categories'
 
 import { PaymentCategoryUI } from '@shared/api/payment-categories'
+import { styled } from '@shared/ui/theme'
 
 type Props = {
-  paymentCategories: PaymentCategoryUI[],
+  paymentCategories: PaymentCategoryUI[]
   onCategoryClick: (id: string) => void
 }
 
@@ -19,7 +19,7 @@ export const Payments = ({ paymentCategories, onCategoryClick }: Props) => {
         <PaymentCategoryRow category={item} />
       </Pressable>
     ),
-    [onCategoryClick]
+    [onCategoryClick],
   )
 
   const getKeyExtractor = useCallback(
