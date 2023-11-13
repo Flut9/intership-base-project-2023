@@ -12,7 +12,7 @@ type Props = {
   onPhoneChange: (phonenumber: string) => void
 }
 
-export const PhoneInput = ({
+export const PaymentPhoneInput = ({
   iconUri,
   phonenumber,
   isValid,

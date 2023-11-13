@@ -22,6 +22,6 @@ export const AuthNavigator = () => {
     )
 }
 
-const Wrapper = styled.View`
+const Wrapper = styled.SafeAreaView`
     flex: 1;
 ` 

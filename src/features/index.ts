@@ -1,3 +1,3 @@
 export { useSearchPaymentServices } from './search-payment-services'
-export { PhoneInput } from './phone-input'
+export { PaymentPhoneInput } from '../entities/payment-phone-input'
 export { useUpdateHistory } from './create-payment'

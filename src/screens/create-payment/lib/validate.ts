@@ -1,4 +1,4 @@
-import { validatePhone } from '@features/phone-input'
+import { validatePhone } from '@entities/payment-phone-input'
 
 import { validateAmount } from '@entities/amout-input'
 

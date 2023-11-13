@@ -1,8 +1,8 @@
 import { useCallback, useMemo, useState } from 'react'
 import { Alert, Platform } from 'react-native'
 
-import { PhoneInput } from '@features/phone-input'
-import { useFormatPhoneNumber } from '@features/phone-input'
+import { PaymentPhoneInput } from '@entities/payment-phone-input'
+import { useFormatPhoneNumber } from '@entities/payment-phone-input'
 
 import { AmountInput } from '@entities/amout-input'
 import { CardStub } from '@entities/card-stub'
@@ -91,14 +91,14 @@ export const CreatePayment = ({
         <FormWrapper>
           <CardStub />
 
-          <PhoneInputWrapper>
-            <PhoneInput
+          <PaymentPhoneInputWrapper>
+            <PaymentPhoneInput
               isValid={validation.isPhoneValid}
               phonenumber={formattedPhonenumber}
               onPhoneChange={onPhoneChange}
               iconUri={selectedService.icon}
             />
-          </PhoneInputWrapper>
+          </PaymentPhoneInputWrapper>
 
           <AmountWrapper>
             <AmountInputWrapper>
@@ -141,7 +141,7 @@ const ScrollView = styled.ScrollView`
 
 const FormWrapper = styled.View``
 
-const PhoneInputWrapper = styled.View`
+const PaymentPhoneInputWrapper = styled.View`
   padding: 16px;
   background-color: ${({ theme }) => theme.palette.background.secondary};
   margin-top: 16px;
