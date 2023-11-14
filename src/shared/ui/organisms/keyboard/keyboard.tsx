@@ -18,23 +18,25 @@ export const Keyboard = ({ buttonList, isShowing, onKeyPress }: Props) => {
     const heightValue = useMemo(() => new Animated.Value(0), [])
 
     const height = useCallback(() => {
-        heightValue.setValue(0)
-        Animated.timing(heightValue, {
-            toValue: 1,
-            duration: 300,
-            easing: Easing.linear,
-            useNativeDriver: true
-        })
-    }, [heightValue])
-
-    const heightProp = useMemo(() => heightValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: isShowing ? [-300, 0] : [0, -300]
-    }), [heightValue, isShowing])
-
+      Animated.timing(heightValue, {
+        toValue: isShowing ? 0 : 1,
+        duration: 200,
+        easing: Easing.ease,
+        useNativeDriver: false,
+      }).start()
+    }, [heightValue, isShowing])
+  
+    const heightProp = useMemo(
+      () =>
+        heightValue.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, -300],
+        }),
+      [heightValue, isShowing],
+    )
+  
     useEffect(() => {
-        console.log(isShowing)
-        height()
+      height()
     }, [isShowing])
 
     return (
@@ -66,7 +68,6 @@ const Wrapper = styled(Animated.View)<{
     position: absolute;
     left: 0;
     right: 0;
-    /* bottom: ${({ bottomOffset }) => bottomOffset}px; */
     height: 300px;
     background-color: ${({ theme }) => theme.palette.background.primary};
     padding-bottom: ${({ bottomPadding }) => bottomPadding}px;
