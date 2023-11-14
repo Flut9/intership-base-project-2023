@@ -1,18 +1,20 @@
 import { Keyboard } from "@shared/ui/organisms"
 import { PhoneAuth } from "./phone-auth"
 import { styled } from "@shared/ui/theme"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { TKeyboardButton } from "@shared/types"
 import { useFormatPhoneNumber } from "@entities/payment-phone-input"
 import { validatePhone } from "@entities/payment-phone-input"
 import { addSnack } from "@entities/snack"
-import { useOtp } from "@features/otp"
+import { setOtpCode, setOtpId, useOtp } from "@features/otp"
+import { setAuthPhone } from "@features/phone-auth"
 
 type Props = {
+    onGetOtpSuccess: () => void,
     onGetOtpError: () => void
 }
 
-export const PhoneAuthConnector = ({ onGetOtpError }: Props) => {
+export const PhoneAuthConnector = ({ onGetOtpSuccess, onGetOtpError }: Props) => {
     const [isPhoneValid, setPhoneValid] = useState(true)
     const [isInputFocused, setInputFocused] = useState(false)
     const {
@@ -23,6 +25,10 @@ export const PhoneAuthConnector = ({ onGetOtpError }: Props) => {
         getOtpCode,
         isLoading
     } = useOtp()
+
+    useEffect(() => {
+        setAuthPhone(formattedPhonenumber)
+    }, [formattedPhonenumber, setAuthPhone])
 
     const onLoginButtonClick = useCallback(() => {
         const isPhoneValid = validatePhone(formattedPhonenumber)
@@ -38,11 +44,13 @@ export const PhoneAuthConnector = ({ onGetOtpError }: Props) => {
 
         getOtpCode({ phone: formattedPhonenumber.replace(" ", "") }, {
             onSuccess: data => {
-                
+                setOtpId(data.otpId)
+                setOtpCode(data.otpCode)
+                onGetOtpSuccess()
             },
             onError: onGetOtpError
         })
-    }, [validatePhone, addSnack, formattedPhonenumber, getOtpCode, onGetOtpError])
+    }, [validatePhone, addSnack, formattedPhonenumber, getOtpCode, onGetOtpError, setOtpCode, setOtpId])
 
     const onKeyPress = useCallback((keyboardButton: TKeyboardButton) => {
         switch (keyboardButton.type) {

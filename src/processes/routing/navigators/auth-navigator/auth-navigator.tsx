@@ -1,6 +1,6 @@
 import { AuthStackParams } from "@processes/routing/types"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { PhoneAuthScreen } from "@processes/routing/screens"
+import { OtpScreen, PhoneAuthScreen } from "@processes/routing/screens"
 import { styled } from "@shared/ui/theme"
 import { AuthStatusScreen } from "@processes/routing/screens"
 
@@ -16,12 +16,16 @@ export const AuthNavigator = () => {
             >
                 <AuthStack.Screen 
                     component={PhoneAuthScreen}
-                    name={"PhoneAuth"}
+                    name="PhoneAuth"
                 />
                 <AuthStack.Screen
                     component={AuthStatusScreen}
-                    name={"AuthStatus"}
+                    name="AuthStatus"
                 /> 
+                <AuthStack.Screen
+                    component={OtpScreen}
+                    name="Otp"
+                />
             </AuthStack.Navigator>
         </Wrapper>
     )

@@ -3,7 +3,11 @@ import { styled } from "@shared/ui/theme"
 import { useCallback, useEffect, useMemo } from "react"
 import { IconLoader } from "@shared/ui/icons"
 
-export const Loader = () => {
+type Props = {
+    color?: string 
+}
+
+export const Loader = ({ color }: Props) => {
     const spinValue = useMemo(() => new Animated.Value(0), [])
 
     const spin = useCallback(() => {
@@ -27,7 +31,7 @@ export const Loader = () => {
 
     return (
         <AnimatedWrapper style={{ transform: [{rotate}] }}>
-            <StyledIconLoader />
+            <StyledIconLoader color={color} />
         </AnimatedWrapper>
     )
 }

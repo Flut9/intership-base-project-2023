@@ -13,3 +13,4 @@ export {
 } from './payments'
 export { Snack } from './snack'
 export { addSnack, $snacks, removeShowedSnack } from './snack'
+export { OtpInput } from "./otp-input"

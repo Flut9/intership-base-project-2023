@@ -1,0 +1,1 @@
+export { $authPhone, setAuthPhone } from "./store"

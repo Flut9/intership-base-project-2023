@@ -4,15 +4,22 @@ import { useCallback } from "react"
 import { AuthStatusScreenProps } from "../types"
 
 export const AuthStatusScreen = ({ navigation, route }: AuthStatusScreenProps) => {
-    const { isSucceeded } = route.params
+    const { isSucceeded, type } = route.params
 
     const onCloseButtonClick = useCallback(() => {
         navigation.goBack()
     }, [navigation])
 
     const onButtonClick = useCallback(() => {
-        navigation.navigate("PhoneAuth")
-    }, [navigation])
+        switch (type) {
+            case "phoneAuthStatus":
+                navigation.navigate("PhoneAuth")
+                break
+            case "otpStatus":
+                navigation.navigate("Otp")
+                break
+        }
+    }, [navigation, type])
 
     return (
         <Wrapper>

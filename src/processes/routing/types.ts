@@ -1,5 +1,6 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { OtpCodeAPI } from '@shared/api/otp'
 
 import { PaymentServiceAPI } from '@shared/api/payment-categories'
 
@@ -18,8 +19,10 @@ export type PaymentsNavigationProps = BottomTabScreenProps<
 export type AuthStackParams = {
   PhoneAuth: undefined
   AuthStatus: {
-    isSucceeded: boolean
-  }
+    isSucceeded: boolean,
+    type: "otpStatus" | "phoneAuthStatus"
+  },
+  Otp: undefined
 }
 
 export type PhoneAuthScreenProps = NativeStackScreenProps<
@@ -29,6 +32,10 @@ export type PhoneAuthScreenProps = NativeStackScreenProps<
 export type AuthStatusScreenProps = NativeStackScreenProps<
   AuthStackParams,
   "AuthStatus"
+>
+export type OtpScreenProps = NativeStackScreenProps<
+  AuthStackParams,
+  "Otp"
 >
 
 export type PaymentsStackParams = {
