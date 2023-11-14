@@ -3,26 +3,37 @@ import { styled } from "@shared/ui/theme"
 import { IconPhone } from "@shared/ui/icons"
 import { useTheme } from "@shared/hooks"
 import { Loader } from "@shared/ui/atoms"
-import { useState, useCallback } from "react"
+import { useEffect, useCallback, useRef } from "react"
+import { TextInput } from "react-native/types"
 
 type Props = {
     phonenumber: string,
     isShowingLoader: boolean,
     isValid: boolean,
+    isFocused: boolean,
+    onFocusChange: (isFocused: boolean) => void,
     onPhoneChange: (phonenumber: string) => void
 }
 
-export const PhoneInput = ({ phonenumber, isShowingLoader, isValid, onPhoneChange }: Props) => {
+export const PhoneInput = ({ phonenumber, isShowingLoader, isValid, isFocused, onFocusChange, onPhoneChange }: Props) => {
     const theme = useTheme()
-    const [isFocused, setFocused] = useState(false)
-    
+    const inputRef = useRef<TextInput | null>(null)
+
     const onFocus = useCallback(() => {
-        setFocused(true)
-      }, [setFocused])
-    
-      const onEndEdition = useCallback(() => {
-        setFocused(false)
-      }, [setFocused])
+        onFocusChange(true)
+    }, [onFocusChange])
+
+    const onEndEditing = useCallback(() => {
+        onFocusChange(false)
+    }, [onFocusChange])
+
+    useEffect(() => {
+        if (isFocused) {
+            inputRef.current?.focus()
+        } else {
+            inputRef.current?.blur()
+        }
+    }, [isFocused, inputRef])
 
     return (
         <Wrapper>
@@ -31,6 +42,7 @@ export const PhoneInput = ({ phonenumber, isShowingLoader, isValid, onPhoneChang
                 color={isValid ? theme.palette.accent.primary : theme.palette.indicator.error} 
             />
             <StyledInput 
+                ref={inputRef}
                 value={!isFocused && phonenumber.length === 3 ? '' : phonenumber}
                 placeholder="Телефон"
                 placeholderTextColor={
@@ -39,7 +51,7 @@ export const PhoneInput = ({ phonenumber, isShowingLoader, isValid, onPhoneChang
                 isValid={isValid}
                 onChangeText={onPhoneChange}
                 onFocus={onFocus}
-                onEndEditing={onEndEdition}
+                onEndEditing={onEndEditing}
             />
 
             {isShowingLoader && <StyledLoader />}

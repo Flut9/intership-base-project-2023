@@ -42,6 +42,4 @@ const ButtonText = styled(Typography)`
     color: ${({ theme }) => theme.palette.text.primary};
 `
 
-const ButtonContent = styled.View``
-
 const StyledIconDelete = styled(IconDelete)``

@@ -14,12 +14,14 @@ type Props = {
 
 export const PhoneAuthConnector = ({ onGetOtpError }: Props) => {
     const [isPhoneValid, setPhoneValid] = useState(true)
+    const [isInputFocused, setInputFocused] = useState(false)
     const {
         formattedPhonenumber, 
         setPhonenumber
     } = useFormatPhoneNumber("")
-    const { 
-        getOtpCode
+    const {
+        getOtpCode,
+        isLoading
     } = useOtp()
 
     const onLoginButtonClick = useCallback(() => {
@@ -43,15 +45,28 @@ export const PhoneAuthConnector = ({ onGetOtpError }: Props) => {
     }, [validatePhone, addSnack, formattedPhonenumber, getOtpCode, onGetOtpError])
 
     const onKeyPress = useCallback((keyboardButton: TKeyboardButton) => {
-        console.log(keyboardButton)
-    }, [])  
+        switch (keyboardButton.type) {
+            case "default":
+                setPhonenumber(formattedPhonenumber + keyboardButton.value)
+                break
+            case "delete":
+                setPhonenumber(formattedPhonenumber.slice(0, -1))
+                break
+            case "cancel":
+                setInputFocused(false)
+                break
+        }
+    }, [setPhonenumber, formattedPhonenumber])  
 
     return (
-        <Wrapper>
+        <Wrapper isInputFocused={isInputFocused}>
             <PhoneAuthWrapper>
                 <PhoneAuth 
                     phonenumber={formattedPhonenumber}
                     isPhoneValid={isPhoneValid}
+                    isFocused={isInputFocused}
+                    isLoading={isLoading}
+                    onFocusChange={setInputFocused}
                     onChangePhone={setPhonenumber}
                     onLoginButtonClick={onLoginButtonClick}
                 />
@@ -63,14 +78,16 @@ export const PhoneAuthConnector = ({ onGetOtpError }: Props) => {
                     [{ value: "7" }, { value: "8" }, { value: "9" }],
                     [{ value: "Отмена", type: "cancel" }, { value: "0" }, { type: "delete" }]
                 ]}
+                isShowing={isInputFocused}
                 onKeyPress={onKeyPress}
             />
         </Wrapper>
     )
 }
 
-const Wrapper = styled.View`
+const Wrapper = styled.View<{ isInputFocused: boolean }>`
     flex: 1;
+    padding-bottom: ${({ isInputFocused }) => isInputFocused ? 300 : 0}px;
 `
 
 const PhoneAuthWrapper = styled.SafeAreaView`

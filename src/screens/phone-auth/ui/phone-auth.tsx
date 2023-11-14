@@ -6,31 +6,37 @@ import { PrimaryButton } from "@shared/ui/molecules"
 type Props = {
     phonenumber: string,
     isPhoneValid: boolean,
+    isFocused: boolean,
+    isLoading: boolean,
     onChangePhone: (phonenumber: string) => void,
-    onLoginButtonClick: () => void  
+    onFocusChange: (isFocused: boolean) => void,
+    onLoginButtonClick: () => void
 }
 
 export const PhoneAuth = ({
     phonenumber,
     isPhoneValid,
+    isFocused,
+    isLoading,
     onChangePhone,
+    onFocusChange,
     onLoginButtonClick
 }: Props) => {
     return (
         <Wrapper>
             <ContentWrapper>
                 <Icon />
-                <StyledPhoneInput 
+                <StyledPhoneInput
                     phonenumber={phonenumber}
-                    isShowingLoader={false}
+                    isShowingLoader={isLoading}
                     isValid={isPhoneValid}
+                    isFocused={isFocused}
+                    onFocusChange={onFocusChange}
                     onPhoneChange={onChangePhone}
                 />
             </ContentWrapper>
 
             <LoginButton onPress={onLoginButtonClick}>Войти</LoginButton>
-
-            
         </Wrapper>
     )
 }
@@ -50,5 +56,3 @@ const Icon = styled(IconLogoMedium)``
 const StyledPhoneInput = styled(PhoneInput)``
 
 const LoginButton = styled(PrimaryButton)``
-
-const CloseButton = styled.Pressable``

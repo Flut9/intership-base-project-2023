@@ -27,7 +27,7 @@ export const Loader = () => {
 
     return (
         <AnimatedWrapper style={{ transform: [{rotate}] }}>
-            <IconLoader />
+            <StyledIconLoader />
         </AnimatedWrapper>
     )
 }
