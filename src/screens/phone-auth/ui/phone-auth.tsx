@@ -2,49 +2,35 @@ import { styled } from "@shared/ui/theme"
 import { IconLogoMedium } from "@shared/ui/icons"
 import { PhoneInput } from "@entities/phone-input"
 import { PrimaryButton } from "@shared/ui/molecules"
-import { useFormatPhoneNumber } from "@entities/payment-phone-input"
-import { useCallback, useState } from "react"
-import { validatePhone } from "@entities/payment-phone-input"
-import { addSnack } from "@entities/snack"
-import { useOtp } from "@features/otp"
 
-export const PhoneAuth = () => {
-    const [isPhoneValid, setPhoneValid] = useState(true)
-    const {
-        formattedPhonenumber, 
-        setPhonenumber
-    } = useFormatPhoneNumber("")
-    const { 
-        getOtpCode
-    } = useOtp()
+type Props = {
+    phonenumber: string,
+    isPhoneValid: boolean,
+    onChangePhone: (phonenumber: string) => void,
+    onLoginButtonClick: () => void  
+}
 
-    const onLoginButtonClick = useCallback(() => {
-        const isPhoneValid = validatePhone(formattedPhonenumber)
-        setPhoneValid(isPhoneValid)
-
-        if (!isPhoneValid) {
-            addSnack({
-                message: "Пожалуйста, убедитесь, что вы правильно ввели номер телефона",
-                durationToHide: 3000
-            })
-        }
-
-        getOtpCode(formattedPhonenumber)
-    }, [validatePhone, addSnack, formattedPhonenumber, getOtpCode])
-
+export const PhoneAuth = ({
+    phonenumber,
+    isPhoneValid,
+    onChangePhone,
+    onLoginButtonClick
+}: Props) => {
     return (
         <Wrapper>
             <ContentWrapper>
                 <Icon />
                 <StyledPhoneInput 
-                    phonenumber={formattedPhonenumber}
+                    phonenumber={phonenumber}
                     isShowingLoader={false}
                     isValid={isPhoneValid}
-                    onPhoneChange={setPhonenumber}
+                    onPhoneChange={onChangePhone}
                 />
             </ContentWrapper>
 
             <LoginButton onPress={onLoginButtonClick}>Войти</LoginButton>
+
+            
         </Wrapper>
     )
 }
@@ -64,3 +50,5 @@ const Icon = styled(IconLogoMedium)``
 const StyledPhoneInput = styled(PhoneInput)``
 
 const LoginButton = styled(PrimaryButton)``
+
+const CloseButton = styled.Pressable``

@@ -1,7 +1,7 @@
-import { api } from "@shared/config/api"
-import { OtpCodeAPI } from "./types"
+import { authApi } from "@shared/config/api"
+import { OtpCodeAPI, OtpCodeRequestAPI } from "./types"
 
-export const postOtpCode = async (body: string) => {
-    const response = await api.post<OtpCodeAPI>('/auth/otp_code', body)
+export const postOtpCode = async (body: OtpCodeRequestAPI) => {
+    const response = await authApi.post<OtpCodeAPI>('/login', body)
     return response.data
 }

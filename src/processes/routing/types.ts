@@ -17,11 +17,18 @@ export type PaymentsNavigationProps = BottomTabScreenProps<
 
 export type AuthStackParams = {
   PhoneAuth: undefined
+  AuthStatus: {
+    isSucceeded: boolean
+  }
 }
 
 export type PhoneAuthScreenProps = NativeStackScreenProps<
   AuthStackParams,
   "PhoneAuth"
+>
+export type AuthStatusScreenProps = NativeStackScreenProps<
+  AuthStackParams,
+  "AuthStatus"
 >
 
 export type PaymentsStackParams = {

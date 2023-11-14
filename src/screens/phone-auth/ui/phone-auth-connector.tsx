@@ -1,10 +1,47 @@
 import { Keyboard } from "@shared/ui/organisms"
 import { PhoneAuth } from "./phone-auth"
 import { styled } from "@shared/ui/theme"
-import { useCallback } from "react"
+import { useCallback, useState } from "react"
 import { TKeyboardButton } from "@shared/types"
+import { useFormatPhoneNumber } from "@entities/payment-phone-input"
+import { validatePhone } from "@entities/payment-phone-input"
+import { addSnack } from "@entities/snack"
+import { useOtp } from "@features/otp"
 
-export const PhoneAuthConnector = () => {
+type Props = {
+    onGetOtpError: () => void
+}
+
+export const PhoneAuthConnector = ({ onGetOtpError }: Props) => {
+    const [isPhoneValid, setPhoneValid] = useState(true)
+    const {
+        formattedPhonenumber, 
+        setPhonenumber
+    } = useFormatPhoneNumber("")
+    const { 
+        getOtpCode
+    } = useOtp()
+
+    const onLoginButtonClick = useCallback(() => {
+        const isPhoneValid = validatePhone(formattedPhonenumber)
+        setPhoneValid(isPhoneValid)
+
+        if (!isPhoneValid) {
+            addSnack({
+                message: "Пожалуйста, убедитесь, что вы правильно ввели номер телефона",
+                durationToHide: 3000
+            })
+            return
+        }
+
+        getOtpCode({ phone: formattedPhonenumber.replace(" ", "") }, {
+            onSuccess: data => {
+                
+            },
+            onError: onGetOtpError
+        })
+    }, [validatePhone, addSnack, formattedPhonenumber, getOtpCode, onGetOtpError])
+
     const onKeyPress = useCallback((keyboardButton: TKeyboardButton) => {
         console.log(keyboardButton)
     }, [])  
@@ -12,7 +49,12 @@ export const PhoneAuthConnector = () => {
     return (
         <Wrapper>
             <PhoneAuthWrapper>
-                <PhoneAuth />
+                <PhoneAuth 
+                    phonenumber={formattedPhonenumber}
+                    isPhoneValid={isPhoneValid}
+                    onChangePhone={setPhonenumber}
+                    onLoginButtonClick={onLoginButtonClick}
+                />
             </PhoneAuthWrapper>
             <Keyboard
                 buttonList={[

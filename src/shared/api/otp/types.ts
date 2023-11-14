@@ -3,3 +3,7 @@ export type OtpCodeAPI = {
     otpCode: string,
     otpLen: number
 }
+
+export type OtpCodeRequestAPI = {
+    phone: string
+}
