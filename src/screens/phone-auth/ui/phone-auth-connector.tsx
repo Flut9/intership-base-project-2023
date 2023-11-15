@@ -3,14 +3,13 @@ import { PhoneAuth } from "./phone-auth"
 import { styled } from "@shared/ui/theme"
 import { useCallback, useEffect, useState } from "react"
 import { TKeyboardButton } from "@shared/types"
-import { useFormatPhoneNumber } from "@entities/payment-phone-input"
-import { validatePhone } from "@entities/payment-phone-input"
 import { addSnack } from "@entities/snack"
 import { resetOtpData, setOtpCode, setOtpId, useOtp } from "@features/otp"
-import { resetAuthPhone, setAuthPhone } from "@features/phone-auth"
+import { resetAuthPhone } from "@features/phone-auth"
 import { resetGuestToken } from "@features/confirm-auth"
 import { useAnimatePadding } from "@shared/hooks"
 import { Animated } from "react-native"
+import { usePhone } from "@features/phone-auth/model/use-phone"
 
 type Props = {
     onGetOtpSuccess: () => void,
@@ -18,12 +17,13 @@ type Props = {
 }
 
 export const PhoneAuthConnector = ({ onGetOtpSuccess, onGetOtpError }: Props) => {
-    const [isPhoneValid, setPhoneValid] = useState(true)
+    const { 
+        phone,
+        isPhoneValid,
+        validatePhone,
+        setPhone   
+    } = usePhone("")
     const [isInputFocused, setInputFocused] = useState(false)
-    const {
-        formattedPhonenumber, 
-        setPhonenumber
-    } = useFormatPhoneNumber("")
     const {
         getOtpCode,
         isLoading
@@ -36,13 +36,8 @@ export const PhoneAuthConnector = ({ onGetOtpSuccess, onGetOtpError }: Props) =>
         resetAuthPhone()
     }, [])
 
-    useEffect(() => {
-        setAuthPhone(formattedPhonenumber)
-    }, [formattedPhonenumber, setAuthPhone])
-
     const onLoginButtonClick = useCallback(() => {
-        const isPhoneValid = validatePhone(formattedPhonenumber)
-        setPhoneValid(isPhoneValid)
+        validatePhone()
 
         if (!isPhoneValid) {
             addSnack({
@@ -52,7 +47,7 @@ export const PhoneAuthConnector = ({ onGetOtpSuccess, onGetOtpError }: Props) =>
             return
         }
 
-        getOtpCode({ phone: formattedPhonenumber.replace(" ", "") }, {
+        getOtpCode({ phone: phone.replace(" ", "") }, {
             onSuccess: data => {
                 setOtpId(data.otpId)
                 setOtpCode(data.otpCode)
@@ -60,32 +55,32 @@ export const PhoneAuthConnector = ({ onGetOtpSuccess, onGetOtpError }: Props) =>
             },
             onError: onGetOtpError
         })
-    }, [validatePhone, addSnack, formattedPhonenumber, getOtpCode, onGetOtpError, setOtpCode, setOtpId])
+    }, [validatePhone, isPhoneValid, addSnack, phone, getOtpCode, onGetOtpError, setOtpCode, setOtpId])
 
     const onKeyPress = useCallback((keyboardButton: TKeyboardButton) => {
         switch (keyboardButton.type) {
             case "default":
-                setPhonenumber(formattedPhonenumber + keyboardButton.value)
+                setPhone(phone + keyboardButton.value)
                 break
             case "delete":
-                setPhonenumber(formattedPhonenumber.slice(0, -1))
+                setPhone(phone.slice(0, -1))
                 break
             case "cancel":
                 setInputFocused(false)
                 break
         }
-    }, [setPhonenumber, formattedPhonenumber])  
+    }, [phone, setPhone])  
 
     return (
         <Wrapper style={{ paddingBottom: padding }} isInputFocused={isInputFocused}>
             <PhoneAuthWrapper>
                 <PhoneAuth 
-                    phonenumber={formattedPhonenumber}
+                    phonenumber={phone}
                     isPhoneValid={isPhoneValid}
                     isFocused={isInputFocused}
                     isLoading={isLoading}
                     onFocusChange={setInputFocused}
-                    onChangePhone={setPhonenumber}
+                    onChangePhone={setPhone}
                     onLoginButtonClick={onLoginButtonClick}
                 />
             </PhoneAuthWrapper>
