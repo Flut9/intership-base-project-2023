@@ -5,6 +5,7 @@ import { KeyboardRow } from "@shared/ui/atoms"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Animated, Easing } from "react-native"
 import { useCallback, useEffect, useMemo } from "react"
+import { useAnimateHeight } from "@shared/hooks"
 
 type Props = {
     buttonList: TKeyboardButton[][],
@@ -14,33 +15,10 @@ type Props = {
 
 export const Keyboard = ({ buttonList, isShowing, onKeyPress }: Props) => {
     const { bottom } = useSafeAreaInsets()
-
-    const heightValue = useMemo(() => new Animated.Value(0), [])
-
-    const height = useCallback(() => {
-      Animated.timing(heightValue, {
-        toValue: isShowing ? 0 : 1,
-        duration: 200,
-        easing: Easing.ease,
-        useNativeDriver: false,
-      }).start()
-    }, [heightValue, isShowing])
-  
-    const heightProp = useMemo(
-      () =>
-        heightValue.interpolate({
-          inputRange: [0, 1],
-          outputRange: [0, -300],
-        }),
-      [heightValue, isShowing],
-    )
-  
-    useEffect(() => {
-      height()
-    }, [isShowing])
+    const { height } = useAnimateHeight(-300, isShowing)
 
     return (
-        <Wrapper style={{ bottom: heightProp }} isShowing={isShowing} bottomPadding={bottom}>
+        <Wrapper style={{ bottom: height }} isShowing={isShowing} bottomPadding={bottom}>
             {buttonList.map((row, rowIndex) => {
                 return (
                     <KeyboardRow key={rowIndex.toString()}>

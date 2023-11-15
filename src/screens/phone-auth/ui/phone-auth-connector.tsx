@@ -9,6 +9,8 @@ import { addSnack } from "@entities/snack"
 import { resetOtpData, setOtpCode, setOtpId, useOtp } from "@features/otp"
 import { resetAuthPhone, setAuthPhone } from "@features/phone-auth"
 import { resetGuestToken } from "@features/confirm-auth"
+import { useAnimatePadding } from "@shared/hooks"
+import { Animated } from "react-native"
 
 type Props = {
     onGetOtpSuccess: () => void,
@@ -26,6 +28,7 @@ export const PhoneAuthConnector = ({ onGetOtpSuccess, onGetOtpError }: Props) =>
         getOtpCode,
         isLoading
     } = useOtp()
+    const { padding } = useAnimatePadding(300, !isInputFocused)
 
     useEffect(() => {
         resetOtpData()
@@ -74,7 +77,7 @@ export const PhoneAuthConnector = ({ onGetOtpSuccess, onGetOtpError }: Props) =>
     }, [setPhonenumber, formattedPhonenumber])  
 
     return (
-        <Wrapper isInputFocused={isInputFocused}>
+        <Wrapper style={{ paddingBottom: padding }} isInputFocused={isInputFocused}>
             <PhoneAuthWrapper>
                 <PhoneAuth 
                     phonenumber={formattedPhonenumber}
@@ -100,7 +103,7 @@ export const PhoneAuthConnector = ({ onGetOtpSuccess, onGetOtpError }: Props) =>
     )
 }
 
-const Wrapper = styled.View<{ isInputFocused: boolean }>`
+const Wrapper = styled(Animated.View)<{ isInputFocused: boolean }>`
     flex: 1;
     padding-bottom: ${({ isInputFocused }) => isInputFocused ? 300 : 0}px;
 `

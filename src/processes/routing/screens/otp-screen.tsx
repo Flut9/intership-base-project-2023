@@ -14,8 +14,7 @@ export const OtpScreen = ({ navigation, route }: OtpScreenProps) => {
 
     const onConfirmAuthError = useCallback(() => {
         navigation.navigate("AuthStatus", {
-            isSucceeded: false,
-            type: "otpStatus"
+            isSucceeded: false
         })
     }, [navigation])
 

@@ -19,8 +19,7 @@ export type PaymentsNavigationProps = BottomTabScreenProps<
 export type AuthStackParams = {
   PhoneAuth: undefined
   AuthStatus: {
-    isSucceeded: boolean,
-    type: "otpStatus" | "phoneAuthStatus"
+    isSucceeded: boolean
   },
   Otp: undefined,
   PasswordAuth: undefined

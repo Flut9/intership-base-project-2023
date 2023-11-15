@@ -11,8 +11,7 @@ export const PhoneAuthScreen = ({ navigation, route }: PhoneAuthScreenProps) => 
 
     const onGetOtpError = useCallback(() => {
         navigation.navigate("AuthStatus", {
-            isSucceeded: false,
-            type: "phoneAuthStatus"
+            isSucceeded: false
         })
     }, [navigation])
 

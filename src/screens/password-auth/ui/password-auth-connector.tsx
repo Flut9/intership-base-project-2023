@@ -1,20 +1,43 @@
 import { usePassword } from "@entities/password-input"
 import { addSnack } from "@entities/snack"
+import { $guestToken } from "@features/confirm-auth"
+import { setAccessToken, setRefreshToken, useLogin } from "@features/login"
+import { useStore } from "effector-react"
 import { useCallback } from "react"
 import { Alert } from "react-native"
 import { PasswordAuth } from "./password-auth"
 
 type Props = {
-    onExitButtonClick: () => void
+    onExitButtonClick: () => void,
+    onLoginSucceeded: () => void,
+    onLoginFailed: () => void
 }
 
-export const PasswordAuthConnector = ({ onExitButtonClick }: Props) => {
+export const PasswordAuthConnector = ({ onExitButtonClick, onLoginSucceeded, onLoginFailed }: Props) => {
     const { 
         password, 
         isLengthValid,
         isCharactersValid,
         setPassword 
     } = usePassword("")
+    const {
+        postLogin
+    } = useLogin()
+    const guestToken = useStore($guestToken)
+
+    const login = useCallback(() => {
+        postLogin({
+            guestToken: guestToken,
+            password: password
+        }, {
+            onSuccess: loginInfo => {
+                setAccessToken(loginInfo.accessToken)
+                setRefreshToken(loginInfo.refreshToken)
+                onLoginSucceeded()
+            },
+            onError: onLoginFailed
+        })
+    }, [postLogin, guestToken, password, setAccessToken, setRefreshToken, onLoginSucceeded, onLoginFailed])
 
     const onCloseButtonClick = useCallback(() => {
         Alert.alert(
@@ -34,7 +57,9 @@ export const PasswordAuthConnector = ({ onExitButtonClick }: Props) => {
     }, [onExitButtonClick])
 
     const onLoginButtonClick = useCallback(() => {
-        if (isCharactersValid && isLengthValid) {}
+        if (isCharactersValid && isLengthValid) {
+            login()
+        }
 
         if (!isLengthValid) {
             addSnack({
@@ -51,7 +76,7 @@ export const PasswordAuthConnector = ({ onExitButtonClick }: Props) => {
             })
             return
         }
-    }, [isCharactersValid, isLengthValid])
+    }, [isCharactersValid, isLengthValid, login])
 
     return (
         <PasswordAuth

@@ -9,6 +9,18 @@ export const PasswordAuthScreen = ({ navigation, route }: PasswordAuthScreenProp
         navigation.navigate("PhoneAuth")
     }, [navigation])
 
+    const onLoginSucceeded = useCallback(() => {
+        navigation.navigate("AuthStatus", {
+            isSucceeded: true
+        })
+    }, [])
+
+    const onLoginFailed = useCallback(() => {
+        navigation.navigate("AuthStatus", {
+            isSucceeded: false
+        })
+    }, [navigation])
+
     return (
         <Wrapper>
             <KeyboardAvoidingWrapper 
@@ -16,6 +28,8 @@ export const PasswordAuthScreen = ({ navigation, route }: PasswordAuthScreenProp
             >
                 <PasswordAuthConnector 
                     onExitButtonClick={onExitButtonClick}
+                    onLoginSucceeded={onLoginSucceeded}
+                    onLoginFailed={onLoginFailed}
                 />
             </KeyboardAvoidingWrapper>
         </Wrapper>

@@ -30,7 +30,7 @@ export const PasswordInput = ({ password, onPasswordChange }: Props) => {
 
             <ToggleSecureButton onPress={onToggleSecureButtonClick}>
                 {isPasswordShowing 
-                    ? <StyledIconEye color={theme.palette.text.tertiary} /> 
+                    ? <StyledIconEye color={theme.palette.text.secondary} /> 
                     : <StyledIconEyeOff color={theme.palette.text.tertiary} />
                 }
             </ToggleSecureButton>
