@@ -15,7 +15,7 @@ export const useTimer = (durationInSeconds: number, stepInSeconds: number) => {
         }
 
         setTimeout(() => {
-            setTimeLeft(timeLeft + 1)
+            setTimeLeft(prev => ++prev)
         }, stepInSeconds * 1000)
     }, [timeLeft, setTimeLeft, durationInSeconds, stepInSeconds, setTimeExpired, isTimeExpired])
 

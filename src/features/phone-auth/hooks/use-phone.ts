@@ -1,6 +1,6 @@
 import { useFormatPhoneNumber, validatePhone } from "@entities/payment-phone-input"
 import { useCallback, useEffect, useState } from "react"
-import { setAuthPhone } from "./store"
+import { setAuthPhone } from "../model/store"
 
 export const usePhone = (initialValue: string) => {
     const [isPhoneValid, setPhoneValid] = useState(true)

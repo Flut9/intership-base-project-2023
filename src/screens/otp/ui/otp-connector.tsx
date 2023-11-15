@@ -120,6 +120,19 @@ export const OtpConnector = ({ onExitButtonClick, onConfirmAuthSuccess, onConfir
         return isTimeExpired ? "Выслать код повторно" : `Повторить через ${TIMER_DURATION - timeLeft}`
     }, [timeLeft, isTimeExpired])
 
+    const buttonList: TKeyboardButton[][] = useMemo(() => {
+        return [
+            [{ value: "1" }, { value: "2" }, { value: "3" }],
+            [{ value: "4" }, { value: "5" }, { value: "6" }],
+            [{ value: "7" }, { value: "8" }, { value: "9" }],
+            [
+                { value: timerButtonText, type: "timer", isEnabled: isTimeExpired }, 
+                { value: "0" }, 
+                { type: "delete" }
+            ]
+        ]
+    }, [timerButtonText, isTimeExpired])
+
     if (isLoading) {
         return (
             <FullscreenLoader />
@@ -135,16 +148,7 @@ export const OtpConnector = ({ onExitButtonClick, onConfirmAuthSuccess, onConfir
                 errorMessage={errorMessage}
             />
             <Keyboard
-                buttonList={[
-                    [{ value: "1" }, { value: "2" }, { value: "3" }],
-                    [{ value: "4" }, { value: "5" }, { value: "6" }],
-                    [{ value: "7" }, { value: "8" }, { value: "9" }],
-                    [
-                        { value: timerButtonText, type: "timer", isEnabled: isTimeExpired }, 
-                        { value: "0" }, 
-                        { type: "delete" }
-                    ]
-                ]}
+                buttonList={buttonList}
                 isShowing={true}
                 onKeyPress={onKeyPress}
             />
@@ -154,4 +158,5 @@ export const OtpConnector = ({ onExitButtonClick, onConfirmAuthSuccess, onConfir
 
 const Wrapper = styled.View`
     flex: 1;
+    background-color: ${({ theme }) => theme.palette.background.primary};
 `

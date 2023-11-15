@@ -14,7 +14,7 @@ const Wrapper = styled.View`
 
 export const AppNavigation = () => {
   const isAuth = useStore($isAuth)
-  
+
   return (
     <Wrapper>
       <Snack />

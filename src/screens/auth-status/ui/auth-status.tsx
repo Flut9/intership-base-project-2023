@@ -3,6 +3,10 @@ import { PrimaryButton } from "@shared/ui/molecules"
 import { Typography } from "@shared/ui/atoms"
 import { IconAuthError, IconAuthSuccess, IconClose } from "@shared/ui/icons"
 import { useTheme } from "@shared/hooks"
+import { useMemo } from "react"
+
+const ICON_SIZE = 148
+const CLOSE_ICON_CLOSE = 24
 
 type Props = {
     isSucceeded: boolean,
@@ -13,27 +17,41 @@ type Props = {
 export const AuthStatus = ({ isSucceeded, onCloseButtonClick, onButtonClick }: Props) => {
     const theme = useTheme()
 
+    const icon = useMemo(() => {
+        return (
+            isSucceeded
+                ? <StyledIconAuthSuccess size={ICON_SIZE} />
+                : <StyledIconAuthError size={ICON_SIZE}/>
+        )
+    }, [isSucceeded])
+
+    const titleText = useMemo(() => isSucceeded ? "Все готово" : "Внимание", [isSucceeded])
+
+    const messageText = useMemo(() => {
+        return (
+            isSucceeded
+                ? "Теперь вы можете использовать мобильное приложение Kode bank" 
+                : "Сервер временно недоступен. Пожалуйста, повторите попытку позднее"
+        )
+    }, [isSucceeded])
+
+    const buttonText = useMemo(() => isSucceeded ? "Продолжить" : "Повторить", [isSucceeded])
+
     return (
         <Wrapper>
             <ContentWrapper>
-                {isSucceeded
-                    ? <StyledIconAuthSuccess size={148} />
-                    : <StyledIconAuthError size={148}/>
-                }
-                <TitleText variant="subtitle">{isSucceeded ? "Все готово" : "Внимание"}</TitleText>
+                {icon}
+                <TitleText variant="subtitle">{titleText}</TitleText>
                 <MessageText variant="body15Regular" align="center">
-                    {isSucceeded
-                        ? "Теперь вы можете использовать мобильное приложение Kode bank" 
-                        : "Сервер временно недоступен. Пожалуйста, повторите попытку позднее"
-                    }
+                    {messageText}
                 </MessageText>
             </ContentWrapper>
 
-            <Button onPress={onButtonClick}>{isSucceeded ? "Продолжить" : "Повторить"}</Button>
+            <Button onPress={onButtonClick}>{buttonText}</Button>
 
             {!isSucceeded && (
                 <CloseButton onPress={onCloseButtonClick}>
-                    <StyledIconClose size={24} color={theme.palette.button.secondary}/>
+                    <StyledIconClose size={CLOSE_ICON_CLOSE} color={theme.palette.button.secondary}/>
                 </CloseButton>
             )}
         </Wrapper>

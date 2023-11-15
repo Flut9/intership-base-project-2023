@@ -1,2 +1,2 @@
 export { PaymentServiceRow } from './ui'
-export { usePaymentOperator } from './model'
+export { usePaymentOperator } from './hooks'

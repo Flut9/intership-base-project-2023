@@ -4,6 +4,7 @@ import { PasswordInput } from "@entities/password-input"
 import { Typography } from "@shared/ui/atoms"
 import { PrimaryButton } from "@shared/ui/molecules"
 import { useTheme } from "@shared/hooks"
+import { Platform } from "react-native"
 
 type Props = {
     password: string,
@@ -16,25 +17,29 @@ export const PasswordAuth = ({ password, onPasswordChange, onCloseButtonClick, o
     const theme = useTheme()
 
     return (
-        <Wrapper>
-            <IconLogoWrapper>
-                <IconLogoSmall />
-            </IconLogoWrapper>
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+            <SafeAreaView>
+                <Wrapper>
+                    <IconLogoWrapper>
+                        <IconLogoSmall />
+                    </IconLogoWrapper>
 
-            <PasswordInputWrapper>
-                <TitleText variant="body15Regular">Введите пароль</TitleText>
-                <PasswordInput 
-                    password={password}
-                    onPasswordChange={onPasswordChange}
-                />
-            </PasswordInputWrapper>    
+                    <PasswordInputWrapper>
+                        <TitleText variant="body15Regular">Введите пароль</TitleText>
+                        <PasswordInput 
+                            password={password}
+                            onPasswordChange={onPasswordChange}
+                        />
+                    </PasswordInputWrapper>    
 
-            <LoginButton onPress={onLoginButtonClick}>Войти</LoginButton>
+                    <LoginButton onPress={onLoginButtonClick}>Войти</LoginButton>
 
-            <CloseButton onPress={onCloseButtonClick}>
-                <StyledIconClose size={24} color={theme.palette.button.secondary}/>
-            </CloseButton>
-        </Wrapper>
+                    <CloseButton onPress={onCloseButtonClick}>
+                        <StyledIconClose size={24} color={theme.palette.button.secondary}/>
+                    </CloseButton>
+                </Wrapper>
+            </SafeAreaView>
+        </KeyboardAvoidingView>
     )
 }
 
@@ -42,6 +47,16 @@ const Wrapper = styled.View`
     flex: 1;
     padding: 16px;
     justify-content: space-between;
+    background-color: ${({ theme }) => theme.palette.background.primary};
+`
+
+const SafeAreaView = styled.SafeAreaView`
+    flex: 1;
+    background-color: ${({ theme }) => theme.palette.background.primary};
+`
+
+const KeyboardAvoidingView = styled.KeyboardAvoidingView`
+    flex: 1;
 `
 
 const IconLogoWrapper = styled.View`

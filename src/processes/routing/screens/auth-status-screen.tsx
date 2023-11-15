@@ -6,15 +6,11 @@ import { AuthStatusScreenProps } from "../types"
 export const AuthStatusScreen = ({ navigation, route }: AuthStatusScreenProps) => {
     const { isSucceeded } = route.params
 
-    const onCloseButtonClick = useCallback(() => {
-        navigation.goBack()
-    }, [navigation])
-
     return (
         <Wrapper>
             <AuthStatusConnector
                 isSucceeded={isSucceeded}
-                onCloseButtonClick={onCloseButtonClick}
+                onCloseButtonClick={navigation.goBack}
             />
         </Wrapper>
     )

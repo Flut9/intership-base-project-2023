@@ -15,16 +15,9 @@ export const PhoneAuthScreen = ({ navigation, route }: PhoneAuthScreenProps) => 
     }, [navigation])
 
     return (
-        <Wrapper>
-            <PhoneAuthConnector 
-                onGetOtpSuccess={onGetOtpSuccess}
-                onGetOtpError={onGetOtpError}
-            />
-        </Wrapper>
+        <PhoneAuthConnector 
+            onGetOtpSuccess={onGetOtpSuccess}
+            onGetOtpError={onGetOtpError}
+        />
     )
 }
-
-const Wrapper = styled.View`
-    flex: 1;
-    background-color: ${({ theme }) => theme.palette.background.secondary};
-`

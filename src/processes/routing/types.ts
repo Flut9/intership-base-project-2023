@@ -25,22 +25,12 @@ export type AuthStackParams = {
   PasswordAuth: undefined
 }
 
-export type PhoneAuthScreenProps = NativeStackScreenProps<
-  AuthStackParams,
-  "PhoneAuth"
->
-export type AuthStatusScreenProps = NativeStackScreenProps<
-  AuthStackParams,
-  "AuthStatus"
->
-export type OtpScreenProps = NativeStackScreenProps<
-  AuthStackParams,
-  "Otp"
->
-export type PasswordAuthScreenProps = NativeStackScreenProps<
-  AuthStackParams, 
-  "PasswordAuth"
->
+type TAuthStackProps<T extends keyof AuthStackParams> = NativeStackScreenProps<AuthStackParams, T>
+
+export type PhoneAuthScreenProps = TAuthStackProps<"PhoneAuth">
+export type AuthStatusScreenProps = TAuthStackProps<"AuthStatus">
+export type OtpScreenProps = TAuthStackProps<"Otp">
+export type PasswordAuthScreenProps = TAuthStackProps<"PasswordAuth">
 
 export type PaymentsStackParams = {
   Payments: undefined
@@ -57,19 +47,9 @@ export type PaymentsStackParams = {
   }
 }
 
-export type PaymentsScreenProps = NativeStackScreenProps<
-  PaymentsStackParams,
-  'Payments'
->
-export type PaymentServicesScreenProps = NativeStackScreenProps<
-  PaymentsStackParams,
-  'PaymentServices'
->
-export type CreatePaymentScreenProps = NativeStackScreenProps<
-  PaymentsStackParams,
-  'CreatePayment'
->
-export type PaymentStatusScreenProps = NativeStackScreenProps<
-  PaymentsStackParams,
-  'PaymentStatus'
->
+type TPaymentsStackProps<T extends keyof PaymentsStackParams> = NativeStackScreenProps<PaymentsStackParams, T>
+
+export type PaymentsScreenProps = TPaymentsStackProps<'Payments'>
+export type PaymentServicesScreenProps = TPaymentsStackProps<'PaymentServices'>
+export type CreatePaymentScreenProps = TPaymentsStackProps<'CreatePayment'>
+export type PaymentStatusScreenProps = TPaymentsStackProps<'PaymentStatus'>

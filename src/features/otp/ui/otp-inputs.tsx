@@ -1,4 +1,5 @@
 import { OtpInput } from "@entities/otp-input"
+import { useTheme } from "@shared/hooks"
 import { styled } from "@shared/ui/theme"
 import { useMemo } from "react"
 
@@ -9,11 +10,25 @@ type Props = {
 }
 
 export const OtpInputs = ({ otpCode, otpLen, isValid }: Props) => {
+    const theme = useTheme()
+
     const otpArr = useMemo(() => new Array(otpLen).fill(0), [otpLen])
 
     const middleInputIndex = useMemo(() => otpLen / 2 - 1, [otpLen])
 
     const otpValues = useMemo(() => otpCode.split(""), [otpCode])
+
+    const separatorColor = useMemo(() => {
+        if (!isValid) {
+            return theme.palette.indicator.error
+        }
+
+        if (otpValues[middleInputIndex + 1] !== undefined) {
+            return theme.palette.text.primary
+        }
+
+        return theme.palette.content.tertiary
+    }, [otpValues, middleInputIndex, isValid, theme])
 
     return (
         <Wrapper>
@@ -28,8 +43,7 @@ export const OtpInputs = ({ otpCode, otpLen, isValid }: Props) => {
                                 key={index}
                             />
                             <MiddleInputsSeparator 
-                                isWhite={otpValues[middleInputIndex + 1] !== undefined}
-                                isValid={isValid}
+                                color={separatorColor}
                             />
                         </>
                     )
@@ -54,18 +68,8 @@ const Wrapper = styled.View`
     column-gap: 6px;
 `
     
-const MiddleInputsSeparator = styled.View<{ isWhite: boolean, isValid: boolean }>`
+const MiddleInputsSeparator = styled.View<{ color: string }>`
     width: 10px;
     height: 2px;
-    background-color: ${({ theme, isWhite, isValid }) => {
-        if (!isValid) {
-            return theme.palette.indicator.error
-        }
-
-        if (isWhite) {
-            return theme.palette.text.primary
-        }
-
-        return theme.palette.content.tertiary
-    }};
+    background-color: ${({ color }) => color};
 `

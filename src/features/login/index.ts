@@ -1,1 +1,2 @@
-export { $accessToken, $refreshToken, $isAuth, setAccessToken, setRefreshToken, setAuth, useLogin } from "./model"
+export { $accessToken, $refreshToken, $isAuth, setAccessToken, setRefreshToken, setAuth } from "./model"
+export { useLogin } from "./hooks"

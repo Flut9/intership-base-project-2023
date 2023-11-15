@@ -1,7 +1,7 @@
 import { Keyboard } from "@shared/ui/organisms"
 import { PhoneAuth } from "./phone-auth"
 import { styled } from "@shared/ui/theme"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { TKeyboardButton } from "@shared/types"
 import { addSnack } from "@entities/snack"
 import { resetOtpData, setOtpCode, setOtpId, useOtp } from "@features/otp"
@@ -9,7 +9,7 @@ import { resetAuthPhone } from "@features/phone-auth"
 import { resetGuestToken } from "@features/confirm-auth"
 import { useAnimatePadding } from "@shared/hooks"
 import { Animated } from "react-native"
-import { usePhone } from "@features/phone-auth/model/use-phone"
+import { usePhone } from "@features/phone-auth/hooks/use-phone"
 
 type Props = {
     onGetOtpSuccess: () => void,
@@ -71,6 +71,15 @@ export const PhoneAuthConnector = ({ onGetOtpSuccess, onGetOtpError }: Props) =>
         }
     }, [phone, setPhone])  
 
+    const buttonList: TKeyboardButton[][] = useMemo(() => {
+        return [
+            [{ value: "1" }, { value: "2" }, { value: "3" }],
+            [{ value: "4" }, { value: "5" }, { value: "6" }],
+            [{ value: "7" }, { value: "8" }, { value: "9" }],
+            [{ value: "Отмена", type: "cancel" }, { value: "0" }, { type: "delete" }]
+        ]
+    }, [])
+
     return (
         <Wrapper style={{ paddingBottom: padding }} isInputFocused={isInputFocused}>
             <PhoneAuthWrapper>
@@ -85,12 +94,7 @@ export const PhoneAuthConnector = ({ onGetOtpSuccess, onGetOtpError }: Props) =>
                 />
             </PhoneAuthWrapper>
             <Keyboard
-                buttonList={[
-                    [{ value: "1" }, { value: "2" }, { value: "3" }],
-                    [{ value: "4" }, { value: "5" }, { value: "6" }],
-                    [{ value: "7" }, { value: "8" }, { value: "9" }],
-                    [{ value: "Отмена", type: "cancel" }, { value: "0" }, { type: "delete" }]
-                ]}
+                buttonList={buttonList}
                 isShowing={isInputFocused}
                 onKeyPress={onKeyPress}
             />
@@ -101,6 +105,7 @@ export const PhoneAuthConnector = ({ onGetOtpSuccess, onGetOtpError }: Props) =>
 const Wrapper = styled(Animated.View)<{ isInputFocused: boolean }>`
     flex: 1;
     padding-bottom: ${({ isInputFocused }) => isInputFocused ? 300 : 0}px;
+    background-color: ${({ theme }) => theme.palette.background.secondary};
 `
 
 const PhoneAuthWrapper = styled.SafeAreaView`
