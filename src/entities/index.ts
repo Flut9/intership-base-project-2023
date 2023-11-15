@@ -14,3 +14,4 @@ export {
 export { Snack } from './snack'
 export { addSnack, $snacks, removeShowedSnack } from './snack'
 export { OtpInput } from "./otp-input"
+export { PasswordInput } from "./password-input"

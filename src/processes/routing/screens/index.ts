@@ -5,3 +5,4 @@ export { PaymentStatusScreen } from './payment-status-screen'
 export { PhoneAuthScreen } from "./phone-auth-screen"
 export { AuthStatusScreen } from "./auth-status-screen"
 export { OtpScreen } from "./otp-screen"
+export { PasswordAuthScreen } from "./password-auth-screen"

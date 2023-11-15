@@ -22,7 +22,8 @@ export type AuthStackParams = {
     isSucceeded: boolean,
     type: "otpStatus" | "phoneAuthStatus"
   },
-  Otp: undefined
+  Otp: undefined,
+  PasswordAuth: undefined
 }
 
 export type PhoneAuthScreenProps = NativeStackScreenProps<
@@ -36,6 +37,10 @@ export type AuthStatusScreenProps = NativeStackScreenProps<
 export type OtpScreenProps = NativeStackScreenProps<
   AuthStackParams,
   "Otp"
+>
+export type PasswordAuthScreenProps = NativeStackScreenProps<
+  AuthStackParams, 
+  "PasswordAuth"
 >
 
 export type PaymentsStackParams = {

@@ -6,8 +6,9 @@ import { TKeyboardButton } from "@shared/types"
 import { useFormatPhoneNumber } from "@entities/payment-phone-input"
 import { validatePhone } from "@entities/payment-phone-input"
 import { addSnack } from "@entities/snack"
-import { setOtpCode, setOtpId, useOtp } from "@features/otp"
-import { setAuthPhone } from "@features/phone-auth"
+import { resetOtpData, setOtpCode, setOtpId, useOtp } from "@features/otp"
+import { resetAuthPhone, setAuthPhone } from "@features/phone-auth"
+import { resetGuestToken } from "@features/confirm-auth"
 
 type Props = {
     onGetOtpSuccess: () => void,
@@ -25,6 +26,12 @@ export const PhoneAuthConnector = ({ onGetOtpSuccess, onGetOtpError }: Props) =>
         getOtpCode,
         isLoading
     } = useOtp()
+
+    useEffect(() => {
+        resetOtpData()
+        resetGuestToken()
+        resetAuthPhone()
+    }, [])
 
     useEffect(() => {
         setAuthPhone(formattedPhonenumber)

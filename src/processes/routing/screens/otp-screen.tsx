@@ -9,7 +9,7 @@ export const OtpScreen = ({ navigation, route }: OtpScreenProps) => {
     }, [navigation])
 
     const onConfirmAuthSuccess = useCallback(() => {
-
+        navigation.navigate("PasswordAuth")
     }, [navigation])
 
     const onConfirmAuthError = useCallback(() => {

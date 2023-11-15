@@ -1,1 +1,1 @@
-export { $authPhone, setAuthPhone } from "./model"
+export { $authPhone, setAuthPhone, resetAuthPhone } from "./model"

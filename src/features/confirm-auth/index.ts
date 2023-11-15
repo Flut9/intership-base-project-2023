@@ -1,1 +1,1 @@
-export { useConfirmAuth, $guestToken, setGuestToken } from "./model"
+export { useConfirmAuth, $guestToken, setGuestToken, resetGuestToken } from "./model"

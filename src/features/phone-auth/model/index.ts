@@ -1,1 +1,1 @@
-export { $authPhone, setAuthPhone } from "./store"
+export { $authPhone, setAuthPhone, resetAuthPhone } from "./store"

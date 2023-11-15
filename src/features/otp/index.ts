@@ -1,2 +1,2 @@
-export { useOtp, $otpId, $otpCode, $enteredOtpCode, setOtpId, setOtpCode, setEnteredOtpCode } from "./model"
+export { useOtp, $otpId, $otpCode, $enteredOtpCode, setOtpId, setOtpCode, setEnteredOtpCode, resetOtpData } from "./model"
 export { OtpInputs } from "./ui"
