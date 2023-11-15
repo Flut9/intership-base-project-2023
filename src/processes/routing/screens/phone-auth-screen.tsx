@@ -2,7 +2,6 @@ import { styled } from "@shared/ui/theme"
 import { PhoneAuthScreenProps } from "../types"
 import { PhoneAuthConnector } from "@screens/phone-auth"
 import { useCallback } from "react"
-import { OtpCodeAPI } from "@shared/api/otp"
 
 export const PhoneAuthScreen = ({ navigation, route }: PhoneAuthScreenProps) => {
     const onGetOtpSuccess = useCallback(() => {

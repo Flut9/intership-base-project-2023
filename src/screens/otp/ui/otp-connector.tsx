@@ -1,4 +1,3 @@
-import { mapOtpCodeToUI, OtpCodeAPI } from "@shared/api/otp"
 import { styled } from "@shared/ui/theme"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { Alert } from "react-native"
@@ -7,10 +6,12 @@ import { FullscreenLoader, Keyboard } from "@shared/ui/organisms"
 import { TKeyboardButton } from "@shared/types"
 import { setGuestToken, useConfirmAuth } from "@features/confirm-auth"
 import { useStore } from "effector-react"
-import { $enteredOtpCode, $otpCode, $otpId, setEnteredOtpCode } from "@features/otp"
+import { $enteredOtpCode, $otpCode, $otpId, setEnteredOtpCode, setOtpCode, setOtpId, useOtp } from "@features/otp"
 import { $authPhone } from "@features/phone-auth"
+import { useTimer } from "@shared/hooks"
 
 const TOTAL_ATTEMPTS_COUNT = 5
+const TIMER_DURATION = 180
 
 type Props = {
     onExitButtonClick: () => void,
@@ -30,6 +31,11 @@ export const OtpConnector = ({ onExitButtonClick, onConfirmAuthSuccess, onConfir
         postConfirmAuth,
         isLoading
     } = useConfirmAuth()
+    const { 
+        timeLeft,
+        isTimeExpired
+    } = useTimer(TIMER_DURATION, 1)
+    const { getOtpCode } = useOtp()
 
     const errorMessage = useMemo(
         () => `Неверный код. Осталось ${TOTAL_ATTEMPTS_COUNT - attemptsCount}`, 
@@ -94,10 +100,25 @@ export const OtpConnector = ({ onExitButtonClick, onConfirmAuthSuccess, onConfir
             case "delete":
                 setEnteredOtpCode(enteredOtpCode.slice(0, -1))
                 break
+            case "timer":
+                if (isTimeExpired) {
+                    getOtpCode({ phone: phone }, {
+                        onSuccess: data => {
+                            setOtpId(data.otpId)
+                            setOtpCode(data.otpCode)
+                        }
+                    })                  
+                }
+
+                break
             case "cancel":
                 break
         }
-    }, [enteredOtpCode, setEnteredOtpCode, validateOtp, otpCode])
+    }, [enteredOtpCode, setEnteredOtpCode, validateOtp, otpCode, getOtpCode, phone, isTimeExpired, setOtpId, setOtpCode])
+
+    const timerButtonText = useMemo(() => {
+        return isTimeExpired ? "Выслать код повторно" : `Повторить через ${TIMER_DURATION - timeLeft}`
+    }, [timeLeft, isTimeExpired])
 
     if (isLoading) {
         return (
@@ -118,7 +139,11 @@ export const OtpConnector = ({ onExitButtonClick, onConfirmAuthSuccess, onConfir
                     [{ value: "1" }, { value: "2" }, { value: "3" }],
                     [{ value: "4" }, { value: "5" }, { value: "6" }],
                     [{ value: "7" }, { value: "8" }, { value: "9" }],
-                    [{ value: "Отмена", type: "cancel" }, { value: "0" }, { type: "delete" }]
+                    [
+                        { value: timerButtonText, type: "timer", isEnabled: isTimeExpired }, 
+                        { value: "0" }, 
+                        { type: "delete" }
+                    ]
                 ]}
                 isShowing={true}
                 onKeyPress={onKeyPress}

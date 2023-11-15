@@ -46,16 +46,16 @@ const Wrapper = styled.View`
     border-radius: 32px;
 `
 
-const StyledIconLock = styled(IconLock1)``
+// const StyledIconLock = styled(IconLock1)``
 
-const StyledInput = styled(Input)`
-    margin-left: 16px;
-    margin-right: 16px;
-    color: ${({ theme }) => theme.palette.text.primary};
-`
+// const StyledInput = styled(Input)`
+//     margin-left: 16px;
+//     margin-right: 16px;
+//     color: ${({ theme }) => theme.palette.text.primary};
+// `
 
-const ToggleSecureButton = styled.TouchableOpacity``
+// const ToggleSecureButton = styled.TouchableOpacity``
 
-const StyledIconEye = styled(IconEye)``
+// const StyledIconEye = styled(IconEye)``
 
-const StyledIconEyeOff = styled(IconEyeOff)``
+// const StyledIconEyeOff = styled(IconEyeOff)``

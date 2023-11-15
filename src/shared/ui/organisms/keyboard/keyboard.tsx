@@ -3,8 +3,7 @@ import { TKeyboardButton, TKeyboardPress } from "@shared/types"
 import { KeyboardButton } from "@shared/ui/atoms"
 import { KeyboardRow } from "@shared/ui/atoms"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import { Animated, Easing } from "react-native"
-import { useCallback, useEffect, useMemo } from "react"
+import { Animated } from "react-native"
 import { useAnimateHeight } from "@shared/hooks"
 
 type Props = {
@@ -28,6 +27,7 @@ export const Keyboard = ({ buttonList, isShowing, onKeyPress }: Props) => {
                                     key={buttonIndex.toString()}
                                     value={button.value}
                                     type={button.type}
+                                    isEnabled={button.isEnabled}
                                     onKeyPress={onKeyPress}
                                 />
                             )

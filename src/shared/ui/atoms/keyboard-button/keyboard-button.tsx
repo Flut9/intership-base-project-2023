@@ -9,7 +9,7 @@ type Props = TKeyboardButton & {
     onKeyPress: TKeyboardPress
 }
 
-export const KeyboardButton = ({ value, type = "default", onKeyPress }: Props) => {
+export const KeyboardButton = ({ value, type = "default", isEnabled = true, onKeyPress }: Props) => {
     const theme = useTheme()
 
     const onPress = useCallback(() => {
@@ -17,12 +17,16 @@ export const KeyboardButton = ({ value, type = "default", onKeyPress }: Props) =
     }, [onKeyPress, value, type])
 
     return (
-        <Wrapper onPress={onPress}>
+        <Wrapper onPress={onPress} disabled={!isEnabled}>
             {type === "delete" && (
                 <StyledIconDelete size={24} color={theme.palette.text.primary} />
             )}
-            {(type === "default" || type === "cancel") && (
-                <ButtonText variant={type === "default" ? "keyboardButton" : "caption1"}>
+            {(type === "default" || type === "cancel" || type === "timer") && (
+                <ButtonText 
+                    isButtonEnabled={isEnabled} 
+                    variant={type === "default" ? "keyboardButton" : "caption1"} 
+                    align="center"
+                >
                     {value}
                 </ButtonText>
             )}
@@ -38,8 +42,8 @@ const Wrapper = styled.TouchableOpacity`
     padding: 16px;
 `
 
-const ButtonText = styled(Typography)`
-    color: ${({ theme }) => theme.palette.text.primary};
+const ButtonText = styled(Typography)<{ isButtonEnabled: boolean }>`
+    color: ${({ theme, isButtonEnabled }) => isButtonEnabled ? theme.palette.text.primary : theme.palette.text.secondary};
 `
 
 const StyledIconDelete = styled(IconDelete)``
