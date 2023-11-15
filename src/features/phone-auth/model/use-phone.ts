@@ -14,7 +14,9 @@ export const usePhone = (initialValue: string) => {
     }, [formattedPhonenumber, setAuthPhone])
 
     const validate = useCallback(() => {
-        setPhoneValid(validatePhone(formattedPhonenumber))
+        const isValid = validatePhone(formattedPhonenumber)
+        setPhoneValid(isValid)
+        return isValid
     }, [formattedPhonenumber, validatePhone, setPhoneValid])
 
     return {

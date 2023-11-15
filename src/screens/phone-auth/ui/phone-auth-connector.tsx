@@ -37,9 +37,9 @@ export const PhoneAuthConnector = ({ onGetOtpSuccess, onGetOtpError }: Props) =>
     }, [])
 
     const onLoginButtonClick = useCallback(() => {
-        validatePhone()
+        const isValid = validatePhone()
 
-        if (!isPhoneValid) {
+        if (!isValid) {
             addSnack({
                 message: "Пожалуйста, убедитесь, что вы правильно ввели номер телефона",
                 durationToHide: 3000
@@ -55,7 +55,7 @@ export const PhoneAuthConnector = ({ onGetOtpSuccess, onGetOtpError }: Props) =>
             },
             onError: onGetOtpError
         })
-    }, [validatePhone, isPhoneValid, addSnack, phone, getOtpCode, onGetOtpError, setOtpCode, setOtpId])
+    }, [validatePhone, addSnack, phone, getOtpCode, onGetOtpError, setOtpCode, setOtpId])
 
     const onKeyPress = useCallback((keyboardButton: TKeyboardButton) => {
         switch (keyboardButton.type) {
