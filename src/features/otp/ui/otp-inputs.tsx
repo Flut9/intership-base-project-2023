@@ -24,7 +24,8 @@ export const OtpInputs = ({ otpCode, otpLen, isValid }: Props) => {
                             <OtpInput
                                 value={otpValues[index] ? otpValues[index] : ""}
                                 isValid={isValid}
-                                key={index} 
+                                isFocused={otpValues.length === index && otpValues[index] === undefined}
+                                key={index}
                             />
                             <MiddleInputsSeparator 
                                 isWhite={otpValues[middleInputIndex + 1] !== undefined}
@@ -38,6 +39,7 @@ export const OtpInputs = ({ otpCode, otpLen, isValid }: Props) => {
                     <OtpInput 
                         value={otpValues[index] ? otpValues[index] : ""}
                         isValid={isValid}
+                        isFocused={otpValues.length === index && otpValues[index] === undefined}
                         key={index} 
                     />
                 )

@@ -3,13 +3,15 @@ import { styled } from "@shared/ui/theme"
 
 type Props = {
     value: string,
-    isValid: boolean
+    isValid: boolean,
+    isFocused: boolean
 }
 
-export const OtpInput = ({ value, isValid }: Props) => {
+export const OtpInput = ({ value, isValid, isFocused }: Props) => {
     return (
         <Wrapper>
             <OtpText isValid={isValid} variant="subtitle">{value}</OtpText>
+            {isFocused && <UnderscoreView />}
         </Wrapper>
     )
 }
@@ -25,4 +27,13 @@ const Wrapper = styled.View`
 
 const OtpText = styled(Typography)<{ isValid: boolean }>`
     color: ${({ theme, isValid }) => isValid ? theme.palette.text.primary : theme.palette.indicator.error};
+`
+
+const UnderscoreView = styled.View`
+    position: absolute;
+    right: 8px;
+    left: 8px;
+    bottom: 8px;
+    height: 2px;
+    background-color: ${({ theme }) => theme.palette.accent.primary};
 `
