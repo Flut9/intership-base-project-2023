@@ -24,10 +24,7 @@ export const OtpConnector = ({ onExitButtonClick, onConfirmAuthSuccess, onConfir
     const otpId = useStore($otpId)
     const otpCode = useStore($otpCode)
     const phone = useStore($authPhone)
-    const [isOtpValid, setOtpValid] = useState(true)
-    const [attemptsCount, setAttemptsCount] = useState(0)
     const {
-        confirmAuthData,
         postConfirmAuth,
         isLoading
     } = useConfirmAuth()
@@ -35,10 +32,15 @@ export const OtpConnector = ({ onExitButtonClick, onConfirmAuthSuccess, onConfir
         timeLeft,
         isTimeExpired
     } = useTimer(TIMER_DURATION, 1)
-    const { getOtpCode } = useOtp()
+    const { 
+        getOtpCode,
+        isOtpValid,
+        validate,
+        attemptsCount
+    } = useOtp()
 
     const errorMessage = useMemo(
-        () => `Неверный код. Осталось ${TOTAL_ATTEMPTS_COUNT - attemptsCount}`, 
+        () => `Неверный код. Осталось ${TOTAL_ATTEMPTS_COUNT - attemptsCount}`,
         [attemptsCount]
     )
 
@@ -57,15 +59,13 @@ export const OtpConnector = ({ onExitButtonClick, onConfirmAuthSuccess, onConfir
     }, [postConfirmAuth, otpId, phone, setGuestToken, onConfirmAuthSuccess, onConfirmAuthError])
 
     const validateOtp = useCallback((enteredOtpCode: string) => {
-        if (enteredOtpCode === otpCode) {
-            setOtpValid(true)
+        const isOtpValid = validate(enteredOtpCode)
+        if (isOtpValid) {
             checkAuthConfirmed(enteredOtpCode)
             return
         }
 
-        const updatedAttemptsCount = attemptsCount + 1
-
-        if (updatedAttemptsCount === 5) {
+        if (attemptsCount === 5) {
             Alert.alert(
                 "Вы ввели неверно код 5 раз",
                 "Данная сессия авторизации будет сброшена!",
@@ -75,46 +75,48 @@ export const OtpConnector = ({ onExitButtonClick, onConfirmAuthSuccess, onConfir
                 }]
             )
         }
+    }, [isOtpValid, attemptsCount, onExitButtonClick, checkAuthConfirmed, validate])
 
-        setOtpValid(false)
-        setAttemptsCount(updatedAttemptsCount)
-    }, [setOtpValid, attemptsCount, setAttemptsCount, onExitButtonClick, checkAuthConfirmed, enteredOtpCode])
+    const handleDefaultKeyPress = useCallback((updatedOtpCode: string) => {
+        if (updatedOtpCode.length === otpCode.length) {
+            validateOtp(updatedOtpCode)
+            setEnteredOtpCode(updatedOtpCode)
+            return
+        } 
+        
+        if (updatedOtpCode.length < otpCode.length) {
+            setEnteredOtpCode(updatedOtpCode)
+            return
+        }
+    }, [otpCode, validateOtp, setEnteredOtpCode])
+
+    const handleTimerKeyPress = useCallback(() => {
+        if (isTimeExpired) {
+            getOtpCode({ phone: phone }, {
+                onSuccess: data => {
+                    setOtpId(data.otpId)
+                    setOtpCode(data.otpCode)
+                }
+            })                  
+        }
+    }, [isTimeExpired, setOtpCode, setOtpId, getOtpCode])
 
     const onKeyPress = useCallback((keyboardButton: TKeyboardButton) => {
         switch (keyboardButton.type) {
             case "default":
                 const updatedOtpCode = enteredOtpCode + keyboardButton.value
-
-                if (updatedOtpCode.length === otpCode.length) {
-                    validateOtp(updatedOtpCode)
-                    setEnteredOtpCode(updatedOtpCode)
-                    break
-                } 
-                
-                if (updatedOtpCode.length < otpCode.length) {
-                    setEnteredOtpCode(updatedOtpCode)
-                    break
-                }
-
+                handleDefaultKeyPress(updatedOtpCode)
                 break
             case "delete":
                 setEnteredOtpCode(enteredOtpCode.slice(0, -1))
                 break
             case "timer":
-                if (isTimeExpired) {
-                    getOtpCode({ phone: phone }, {
-                        onSuccess: data => {
-                            setOtpId(data.otpId)
-                            setOtpCode(data.otpCode)
-                        }
-                    })                  
-                }
-
+                handleTimerKeyPress()
                 break
             case "cancel":
                 break
         }
-    }, [enteredOtpCode, setEnteredOtpCode, validateOtp, otpCode, getOtpCode, phone, isTimeExpired, setOtpId, setOtpCode])
+    }, [enteredOtpCode, setEnteredOtpCode, handleDefaultKeyPress, handleTimerKeyPress])
 
     const timerButtonText = useMemo(() => {
         return isTimeExpired ? "Выслать код повторно" : `Повторить через ${TIMER_DURATION - timeLeft}`
