@@ -1,0 +1,1 @@
+export { useConfirmAuth } from "./use-confirm-auth"

@@ -84,3 +84,6 @@ export { IconWhitePlusDots } from './icon-white-plus-dots'
 export { IconHeaderShareIcon } from './icon-header-share-icon'
 export { IconFingerprint } from './icon-fingerprint'
 export { IconLogoMedium } from './icon-logo-medium'
+export { IconLogoSmall } from "./icon-logo-small"
+export { IconAuthError } from "./icon-auth-error"
+export { IconAuthSuccess } from "./icon-auth-success"
