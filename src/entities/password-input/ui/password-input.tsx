@@ -15,7 +15,7 @@ export const PasswordInput = ({ password, onPasswordChange }: Props) => {
 
     const onToggleSecureButtonClick = useCallback(() => {
         setPasswordShowing(prev => !prev)
-    }, [isPasswordShowing, setPasswordShowing])
+    }, [setPasswordShowing])
 
     return (
         <Wrapper>

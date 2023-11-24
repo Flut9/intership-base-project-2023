@@ -75,7 +75,6 @@ export const PasswordAuthConnector = ({ onExitButtonClick, onLoginSucceeded, onL
                 message: "Пароль может содержать только цифры и буквы",
                 durationToHide: 3000
             })
-            return
         }
     }, [isCharactersValid, isLengthValid, login])
 
